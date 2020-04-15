@@ -1,0 +1,5 @@
+kuebctl apply -f flux.yaml
+#get ssh key and add to github
+fluxctl identity --k8s-fwd-ns anydevops
+#trigger sync
+fluxctl sync --k8s-fwd-ns anydevops

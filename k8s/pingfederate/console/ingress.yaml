@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx-public
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+  labels:
+    app: pingfederate
+    tier: admin
+  name: pingfederate-admin
+spec:
+  rules:
+  - host: ${K8S_ENVIRONMENT}pingfederate-admin.anydevops.com
+    http:
+      paths:
+      - backend:
+          serviceName: pingfederate-admin
+          servicePort: 9999
+        path: /pingfederate
+      - backend:
+          serviceName: pingfederate-admin
+          servicePort: 9999
+        path: /pf-admin-api
+  tls:
+  - hosts:
+    - ${K8S_ENVIRONMENT}pingfederate-admin.anydevops.com
+    secretName: anydevops-tls-secret
