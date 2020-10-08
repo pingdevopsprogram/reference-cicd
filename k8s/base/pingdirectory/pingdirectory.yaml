@@ -36,7 +36,7 @@ metadata:
     role: pingdirectory
   name: pingdirectory
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       role: pingdirectory
@@ -47,8 +47,6 @@ spec:
         role: pingdirectory
       name: pingdirectory
     spec:
-      nodeSelector:
-        role: "pd-ebs-test"
       containers:
       - envFrom:
         - configMapRef:
@@ -57,6 +55,7 @@ spec:
             name: devops-secret
             optional: true
         image: pingidentity/pingdirectory:edge
+        imagePullPolicy: Always
         lifecycle:
           preStop:
             exec:
@@ -106,5 +105,5 @@ spec:
       - ReadWriteOnce
       resources:
         requests:
-          storage: 3Gi
-      storageClassName: pingdirectory-gp2
+          storage: 5Gi
+      storageClassName: gp2
