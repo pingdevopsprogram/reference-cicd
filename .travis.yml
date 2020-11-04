@@ -1,3 +1,5 @@
+dist: focal
+
 install: 
   - ./ci-scripts/install-dependencies.sh
 
