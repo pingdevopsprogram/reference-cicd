@@ -5,7 +5,7 @@ set +x
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" 
 unzip awscliv2.zip
 
-./aws/install && apt install amazon-ecr-credential-helper -y
+sudo ./aws/install && sudo apt install amazon-ecr-credential-helper -y
 aws version
 
 mkdir ${HOME}/.aws
