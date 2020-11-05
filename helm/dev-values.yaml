@@ -1,0 +1,70 @@
+# debug:
+#   values: true
+global:
+  envs:
+    PING_IDENTITY_ACCEPT_EULA: "YES"
+  addReleaseNameToResource: none
+  ingress:
+    addReleaseNameToHost: prepend
+    annotations:
+      kubernetes.io/ingress.class: nginx-public
+      nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    defaultDomain: ping-devops.com
+    defaultTlsSecret: null
+    enabled: true
+pingdataconsole:
+  chartEnabled: true
+pingdirectory:
+  chartEnabled: true
+  envs:
+    SERVER_PROFILE_BRANCH: GDO-529
+    SERVER_PROFILE_PATH: baseline/pingdirectory
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    # variables that say PUBLIC_HOSTNAME
+    #changeme to your <release-name>-hostname
+    PF_ADMIN_PUBLIC_HOSTNAME: samir-fs-pingfederate-admin.ping-devops.com
+    PF_ENGINE_PUBLIC_HOSTNAME: samir-fs-pingfederate-engine.ping-devops.com
+    PF_ADMIN_PUBLIC_PORT: "443"
+    PF_ENGINE_PUBLIC_PORT: "443"
+    PD_DELEGATOR_PUBLIC_HOSTNAME: samir-fs-pingdelegator.ping-devops.com
+    PD_DELEGATOR_PUBLIC_PORT: "443"
+    PD_ENGINE_PRIVATE_HOSTNAME: pingdirectory
+    PF_ENGINE_PRIVATE_HOSTNAME: pingfederate-engine
+pingfederate-admin:
+  chartEnabled: true
+  envs:
+    SERVER_PROFILE_BASELINE_PATH: baseline/pingfederate
+    SERVER_PROFILE_BASELINE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PARENT: BASELINE
+    SERVER_PROFILE_PATH: pf-dns-ping-clustering/pingfederate
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    #changeme to your <release-name>-hostname
+    PF_ADMIN_PUBLIC_HOSTNAME: samir-fs-pingfederate-admin.ping-devops.com
+    PF_ENGINE_PUBLIC_HOSTNAME: samir-fs-pingfederate-engine.ping-devops.com
+    PF_ADMIN_PUBLIC_PORT: "443"
+    PF_ENGINE_PUBLIC_PORT: "443"
+    PD_DELEGATOR_PUBLIC_HOSTNAME: samir-fs-pingdelegator.ping-devops.com
+    PD_DELEGATOR_PUBLIC_PORT: "443"
+    PD_ENGINE_PRIVATE_HOSTNAME: pingdirectory
+    PF_ENGINE_PRIVATE_HOSTNAME: pingfederate-engine
+pingfederate-engine:
+  # container:
+  #   replicaCount: 3
+  chartEnabled: true
+  envs:
+    SERVER_PROFILE_BASELINE_PATH: baseline/pingfederate
+    SERVER_PROFILE_BASELINE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PARENT: BASELINE
+    SERVER_PROFILE_PATH: pf-dns-ping-clustering/pingfederate
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    #changeme to your <release-name>-hostname
+    PF_ADMIN_PUBLIC_HOSTNAME: samir-fs-pingfederate-admin.ping-devops.com
+    PF_ENGINE_PUBLIC_HOSTNAME: samir-fs-pingfederate-engine.ping-devops.com
+    PF_ADMIN_PUBLIC_PORT: "443"
+    PF_ENGINE_PUBLIC_PORT: "443"
+    PD_DELEGATOR_PUBLIC_HOSTNAME: samir-fs-pingdelegator.ping-devops.com
+    PD_DELEGATOR_PUBLIC_PORT: "443"
+    PD_ENGINE_PRIVATE_HOSTNAME: pingdirectory
+    PF_LOG_LEVEL: DEBUG
+    PF_ENGINE_PRIVATE_HOSTNAME: pingfederate-engine
+    # SERVER_PROFILE_SHA: _git-sha_
