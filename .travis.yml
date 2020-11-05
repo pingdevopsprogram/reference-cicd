@@ -11,8 +11,8 @@ install:
 
 jobs:
   include:
-    - stage: "init"
-      name: initialize
-      script: ./ci-scripts/check-tools.sh
+    # - stage: "init"
+    #   name: initialize
+    #   script: ./ci-scripts/check-tools.sh
     - name: d.dev-helm
       script: ./ci-scripts/deploy-release.sh

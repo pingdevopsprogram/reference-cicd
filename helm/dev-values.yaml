@@ -14,10 +14,29 @@ global:
     enabled: true
 pingdataconsole:
   chartEnabled: true
+  image:
+    name: pingdataconsole
+    pullPolicy: IfNotPresent
+    repository: 574076504146.dkr.ecr.us-west-2.amazonaws.com/docker-builds
+    tag: 8.1.0.0-alpine-az11-2010-31fb148c
+  # image:
+  #   name: pingdataconsole
+  #   pullPolicy: IfNotPresent
+  #   repository: pingidentity
+  #   tag: "2010"
 pingdirectory:
   chartEnabled: true
+  image:
+    name: pingdirectory
+    pullPolicy: IfNotPresent
+    repository: 574076504146.dkr.ecr.us-west-2.amazonaws.com/docker-builds
+    tag: 8.1.0.0-alpine-az11-2010-31fb148c
+  # image:
+  #   name: pingdirectory
+  #   pullPolicy: IfNotPresent
+  #   repository: pingidentity
+  #   tag: "2010"
   envs:
-    SERVER_PROFILE_BRANCH: GDO-529
     SERVER_PROFILE_PATH: baseline/pingdirectory
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     # variables that say PUBLIC_HOSTNAME
@@ -32,6 +51,16 @@ pingdirectory:
     PF_ENGINE_PRIVATE_HOSTNAME: pingfederate-engine
 pingfederate-admin:
   chartEnabled: true
+  image:
+    name: pingfederate
+    pullPolicy: IfNotPresent
+    repository: 574076504146.dkr.ecr.us-west-2.amazonaws.com/docker-builds
+    tag: 10.1.2-alpine-az11-2010-31fb148c
+  # image:
+  #   name: pingfederate
+  #   pullPolicy: IfNotPresent
+  #   repository: pingidentity
+  #   tag: "2010"
   envs:
     SERVER_PROFILE_BASELINE_PATH: baseline/pingfederate
     SERVER_PROFILE_BASELINE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
@@ -50,6 +79,16 @@ pingfederate-admin:
 pingfederate-engine:
   # container:
   #   replicaCount: 3
+  image:
+    name: pingfederate
+    pullPolicy: IfNotPresent
+    repository: 574076504146.dkr.ecr.us-west-2.amazonaws.com/docker-builds
+    tag: 10.1.2-alpine-az11-2010-31fb148c
+  # image:
+  #   name: pingfederate
+  #   pullPolicy: IfNotPresent
+  #   repository: pingidentity
+  #   tag: "2010"
   chartEnabled: true
   envs:
     SERVER_PROFILE_BASELINE_PATH: baseline/pingfederate

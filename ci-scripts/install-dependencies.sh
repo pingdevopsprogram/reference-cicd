@@ -41,4 +41,12 @@ sudo apt-get -y install helm
 helm repo add pingidentity https://helm.pingidentity.com/devops
 helm repo update
 
+
+kubectl create secret generic devops-secret --from-literal=PING_IDENTITY_DEVOPS_USER="${PING_IDENTITY_DEVOPS_USER}" --from-literal=PING_IDENTITY_DEVOPS_KEY="${PING_IDENTITY_DEVOPS_KEY}"
 echo "ended install"
+aws --version
+aws-iam-authenticator help
+kubectl version
+kubectl get all
+helm repo ls
+helm ls
