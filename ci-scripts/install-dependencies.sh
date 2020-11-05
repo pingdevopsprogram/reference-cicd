@@ -5,7 +5,7 @@ set -x
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" 
 unzip awscliv2.zip
 sudo ./aws/install
-aws --version
+# aws --version
 
 # INSTALL aws-iam-authenticator
 curl -o aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/1.18.8/2020-09-18/bin/linux/amd64/aws-iam-authenticator
@@ -28,23 +28,14 @@ kubectl version --client
 
 mkdir ${HOME}/.kube
 echo "$KUBE_CONFIG_YAML" | base64 --decode > ${HOME}/.kube/config
-export KUBECONFIG=${HOME}/.kube/config
-
-kubectl version
 
 
 # INSTALL helm
 curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
 sudo apt-get install apt-transport-https --yes
 echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-# sudo apt-get update
 sudo apt-get -y install helm
-
-helm version
-
 helm repo add pingidentity https://helm.pingidentity.com/devops
 helm repo update
-
-
 
 echo "ended install"
