@@ -41,11 +41,11 @@ pingdirectory:
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     # variables that say PUBLIC_HOSTNAME
     #changeme to your <release-name>-hostname
-    PF_ADMIN_PUBLIC_HOSTNAME: samir-fs-pingfederate-admin.ping-devops.com
-    PF_ENGINE_PUBLIC_HOSTNAME: samir-fs-pingfederate-engine.ping-devops.com
+    PF_ADMIN_PUBLIC_HOSTNAME: sg-dev-fs-pingfederate-admin.ping-devops.com
+    PF_ENGINE_PUBLIC_HOSTNAME: sg-dev-fs-pingfederate-engine.ping-devops.com
     PF_ADMIN_PUBLIC_PORT: "443"
     PF_ENGINE_PUBLIC_PORT: "443"
-    PD_DELEGATOR_PUBLIC_HOSTNAME: samir-fs-pingdelegator.ping-devops.com
+    PD_DELEGATOR_PUBLIC_HOSTNAME: sg-dev-fs-pingdelegator.ping-devops.com
     PD_DELEGATOR_PUBLIC_PORT: "443"
     PD_ENGINE_PRIVATE_HOSTNAME: pingdirectory
     PF_ENGINE_PRIVATE_HOSTNAME: pingfederate-engine
@@ -68,14 +68,15 @@ pingfederate-admin:
     SERVER_PROFILE_PATH: pf-dns-ping-clustering/pingfederate
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     #changeme to your <release-name>-hostname
-    PF_ADMIN_PUBLIC_HOSTNAME: samir-fs-pingfederate-admin.ping-devops.com
-    PF_ENGINE_PUBLIC_HOSTNAME: samir-fs-pingfederate-engine.ping-devops.com
+    PF_ADMIN_PUBLIC_HOSTNAME: sg-dev-fs-pingfederate-admin.ping-devops.com
+    PF_ENGINE_PUBLIC_HOSTNAME: sg-dev-fs-pingfederate-engine.ping-devops.com
     PF_ADMIN_PUBLIC_PORT: "443"
     PF_ENGINE_PUBLIC_PORT: "443"
-    PD_DELEGATOR_PUBLIC_HOSTNAME: samir-fs-pingdelegator.ping-devops.com
+    PD_DELEGATOR_PUBLIC_HOSTNAME: sg-dev-fs-pingdelegator.ping-devops.com
     PD_DELEGATOR_PUBLIC_PORT: "443"
     PD_ENGINE_PRIVATE_HOSTNAME: pingdirectory
     PF_ENGINE_PRIVATE_HOSTNAME: pingfederate-engine
+    PF_DELETE_ME: something
 pingfederate-engine:
   # container:
   #   replicaCount: 3
@@ -97,11 +98,11 @@ pingfederate-engine:
     SERVER_PROFILE_PATH: pf-dns-ping-clustering/pingfederate
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     #changeme to your <release-name>-hostname
-    PF_ADMIN_PUBLIC_HOSTNAME: samir-fs-pingfederate-admin.ping-devops.com
-    PF_ENGINE_PUBLIC_HOSTNAME: samir-fs-pingfederate-engine.ping-devops.com
+    PF_ADMIN_PUBLIC_HOSTNAME: sg-dev-fs-pingfederate-admin.ping-devops.com
+    PF_ENGINE_PUBLIC_HOSTNAME: sg-dev-fs-pingfederate-engine.ping-devops.com
     PF_ADMIN_PUBLIC_PORT: "443"
     PF_ENGINE_PUBLIC_PORT: "443"
-    PD_DELEGATOR_PUBLIC_HOSTNAME: samir-fs-pingdelegator.ping-devops.com
+    PD_DELEGATOR_PUBLIC_HOSTNAME: sg-dev-fs-pingdelegator.ping-devops.com
     PD_DELEGATOR_PUBLIC_PORT: "443"
     PD_ENGINE_PRIVATE_HOSTNAME: pingdirectory
     PF_LOG_LEVEL: DEBUG
