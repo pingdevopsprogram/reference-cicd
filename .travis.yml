@@ -16,3 +16,4 @@ jobs:
       script: ./ci-scripts/check-tools.sh
     - stage: deploy
       name: d.dev-helm
+      script: ./ci-scripts/deploy-release.sh
