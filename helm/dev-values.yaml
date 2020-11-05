@@ -62,7 +62,7 @@ pingfederate-admin:
   #   repository: pingidentity
   #   tag: "2010"
   envs:
-    SERVER_PROFILE_PATH: getting-started/pingfederate
+    SERVER_PROFILE_PATH: baseline/pingfederate
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     #changeme to your <release-name>-hostname
     PF_ADMIN_PUBLIC_HOSTNAME: sg-dev-fs-pingfederate-admin.ping-devops.com
@@ -89,7 +89,7 @@ pingfederate-engine:
   #   tag: "2010"
   chartEnabled: true
   envs:
-    SERVER_PROFILE_PATH: getting-started/pingfederate
+    SERVER_PROFILE_PATH: baseline/pingfederate
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     #changeme to your <release-name>-hostname
     PF_ADMIN_PUBLIC_HOSTNAME: sg-dev-fs-pingfederate-admin.ping-devops.com
