@@ -2,7 +2,8 @@ dist: focal
 
 # language: go
 
-# before_install:
+before_install:
+  - sudo apt-get update
 #   - sudo apt-get -y install libxml2-dev amazon-ecr-credential-helper
 
 install: 
@@ -12,5 +13,4 @@ jobs:
   include:
     - stage: "init"
       name: initialize
-      script: kubectl get all
-  
+      script: check-tools.sh
