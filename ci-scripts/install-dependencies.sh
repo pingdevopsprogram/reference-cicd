@@ -13,9 +13,11 @@ chmod +x ./aws-iam-authenticator
 mkdir -p $HOME/bin && cp ./aws-iam-authenticator $HOME/bin/aws-iam-authenticator && export PATH=$PATH:$HOME/bin
 aws-iam-authenticator help
 
-# mkdir ${HOME}/.aws
-# echo "$AWS_CONFIG" | base64 --decode > ${HOME}/.aws/config
-# echo "$AWS_CREDENTIALS" | base64 --decode > ${HOME}/.aws/credentials
+if test -n "$AWS_CONFIG" ; then
+  mkdir "${HOME}/.aws"
+  echo "$AWS_CONFIG" | base64 --decode > ${HOME}/.aws/config
+  echo "$AWS_CREDENTIALS" | base64 --decode > ${HOME}/.aws/credentials
+fi
 
 # go get -u github.com/awslabs/amazon-ecr-credential-helper/ecr-login/cli/docker-credential-ecr-login
 
