@@ -1,9 +1,9 @@
 dist: focal
 
-language: go
+# language: go
 
-go:
-- master
+before_install:
+  - sudo apt-get -y install libxml2-dev amazon-ecr-credential-helper
 
 install: 
   - ./ci-scripts/install-dependencies.sh

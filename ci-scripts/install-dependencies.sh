@@ -5,14 +5,15 @@ set -x
 # curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" 
 # unzip awscliv2.zip
 
-# sudo ./aws/install && sudo apt install amazon-ecr-credential-helper -y
-# aws --version
+sudo ./aws/install
+# sudo apt install amazon-ecr-credential-helper -y
+aws --version
 
 # mkdir ${HOME}/.aws
 # echo "$AWS_CONFIG" | base64 --decode > ${HOME}/.aws/config
 # echo "$AWS_CREDENTIALS" | base64 --decode > ${HOME}/.aws/credentials
 
-go get -u github.com/awslabs/amazon-ecr-credential-helper/ecr-login/cli/docker-credential-ecr-login
+# go get -u github.com/awslabs/amazon-ecr-credential-helper/ecr-login/cli/docker-credential-ecr-login
 
 
 curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
