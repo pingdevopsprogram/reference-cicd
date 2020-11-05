@@ -23,6 +23,8 @@ kubectl version --client
 
 mkdir ${HOME}/.kube
 echo "$KUBE_CONFIG_YAML" | base64 --decode > ${HOME}/.kube/config
-export KUBE_CONFIG=${HOME}/.kube/config
+export KUBECONFIG=${HOME}/.kube/config
 
 kubectl version
+
+echo "ended install"

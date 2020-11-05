@@ -8,3 +8,8 @@ go:
 install: 
   - ./ci-scripts/install-dependencies.sh
 
+jobs:
+  include:
+    - stage: "init"
+      name: initialize
+      script: kubectl get all
