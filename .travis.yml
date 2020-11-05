@@ -13,4 +13,4 @@ jobs:
   include:
     - stage: "init"
       name: initialize
-      script: check-tools.sh
+      script: ./check-tools.sh
