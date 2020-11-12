@@ -73,7 +73,7 @@ pingfederate-admin:
     PD_DELEGATOR_PUBLIC_PORT: "443"
     PD_ENGINE_PRIVATE_HOSTNAME: pingdirectory
     PF_ENGINE_PRIVATE_HOSTNAME: pingfederate-engine
-    PF_DELETE_ME: something
+    PF_DELETE_ME: something-else
 pingfederate-engine:
   # container:
   #   replicaCount: 3
