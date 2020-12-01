@@ -41,7 +41,6 @@ kubectl create secret generic devops-secret --from-literal=PING_IDENTITY_DEVOPS_
 echo "ended install"
 aws --version
 aws-iam-authenticator help
-kubectl version
 kubectl get all
 helm repo ls
 helm ls
