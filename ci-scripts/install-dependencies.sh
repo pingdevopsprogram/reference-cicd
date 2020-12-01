@@ -27,11 +27,6 @@ chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 kubectl version --client
 
-
-mkdir ${HOME}/.kube
-echo "$KUBE_CONFIG_YAML" | base64 --decode > ${HOME}/.kube/config
-
-
 # INSTALL helm
 curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
 sudo apt-get install apt-transport-https --yes
