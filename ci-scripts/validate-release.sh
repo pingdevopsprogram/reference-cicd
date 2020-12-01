@@ -2,17 +2,27 @@
 
 set -x
 
-
-for D in ./profiles/* ; do if [ -d "${D}" ]; then dirr="${D}" ; git log -n 1 --pretty=format:%H -- $dirr | cut -c 1-8 ; fi ; done
-SERVER_PROFILE_SHA=something
+## builds sha for each product based on the folder name in ./profiles/* (e.g. pingfederateSha)
+for D in ./profiles/* ; do 
+  if [ -d "${D}" ]; then 
+    _prodName=$(basename "${D}")
+    dirr="${D}"
+    eval "${_prodName}Sha=$(git log -n 1 --pretty=format:%H -- "$dirr" | cut -c 1-8)"
+  fi
+done
 
 # install the new profiles, but don't move on until install is successfully deployed. 
+# tied to chart version to avoid breaking changes.
 helm upgrade --install \
-  sg-dev-fs pingidentity/devops \
-  --set pingfederate-admin.envs.SERVER_PROFILE_SHA=abc123 \
+  sg-dev-fs pingidentity/ping-devops \
+  --set pingfederate-admin.envs.SERVER_PROFILE_SHA="${pingfederateSha}" \
+  --set pingfederate-engine.envs.SERVER_PROFILE_SHA="${pingfederateSha}" \
+  --set pingdirectory.envs.SERVER_PROFILE_SHA="${pingdirectorySha}" \
+  --set global.envs.SERVER_PROFILE_BRANCH="$(git rev-parse --abbrev-ref HEAD)" \
   -f helm/dev-values.yaml \
   --wait --timeout 10m0s
 
+## kickoff integration tests
 kubectl run microservices-tests -i --rm \
   --restart=Never --image=samirgandhi/integration-tests \
   -- run /etc/tests/refci-tests.postman_collection.json --insecure --ignore-redirects

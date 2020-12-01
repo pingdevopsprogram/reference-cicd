@@ -1,44 +1,86 @@
-# debug:
-#   values: true
+############################################################
+# Ping Identity DevOps values.yaml
+############################################################
+# The yaml is seperated into 2 major sections:
+#  - global - Represents the base set of values that will
+#             be used for each product, if that product
+#             doesn't override the global values.
+#
+#  - image  - For every image/product, the values will
+#             be merged with the global settings, and
+#             take precedence.
+############################################################
+
+############################################################
+# Global values
+############################################################
 global:
-  envs:
-    PING_IDENTITY_ACCEPT_EULA: "YES"
   addReleaseNameToResource: none
   ingress:
-    addReleaseNameToHost: prepend
-    annotations:
-      kubernetes.io/ingress.class: nginx-public
-      nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-    defaultDomain: ping-devops.com
-    defaultTlsSecret: null
     enabled: true
-pingdataconsole:
-  chartEnabled: true
+    addReleaseNameToHost: prepend
+    defaultDomain: ping-devops.com
+    defaultTlsSecret:
+    annotations:
+      # nginx example
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      kubernetes.io/ingress.class: "nginx-public"
   image:
-    name: pingdataconsole
+    repository: pingidentity
+    name:
+    tag: 2010
     pullPolicy: IfNotPresent
-    repository: 574076504146.dkr.ecr.us-west-2.amazonaws.com/docker-builds
-    tag: 8.1.0.0-alpine-az11-2010-31fb148c
-  # image:
-  #   name: pingdataconsole
-  #   pullPolicy: IfNotPresent
-  #   repository: pingidentity
-  #   tag: "2010"
-pingdirectory:
-  chartEnabled: true
-  image:
-    name: pingdirectory
-    pullPolicy: IfNotPresent
-    repository: 574076504146.dkr.ecr.us-west-2.amazonaws.com/docker-builds
-    tag: 8.1.0.0-alpine-az11-2010-31fb148c
-  # image:
-  #   name: pingdirectory
-  #   pullPolicy: IfNotPresent
-  #   repository: pingidentity
-  #   tag: "2010"
+  license:
+    secret:
+      devOps: devops-secret
   envs:
-    SERVER_PROFILE_PATH: baseline/pingdirectory
-    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    PING_IDENTITY_ACCEPT_EULA: "YES"
+#############################################################
+# pingfederate-admin values
+#############################################################
+pingfederate-admin:
+  enabled: true
+  envs:
+    SERVER_PROFILE_PATH: profiles/pingfederate
+    SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd
+    #changeme to your <release-name>-hostname
+    PF_ADMIN_PUBLIC_HOSTNAME: sg-dev-fs-pingfederate-admin.ping-devops.com
+    PF_ENGINE_PUBLIC_HOSTNAME: sg-dev-fs-pingfederate-engine.ping-devops.com
+    PF_ADMIN_PUBLIC_PORT: "443"
+    PF_ENGINE_PUBLIC_PORT: "443"
+    PD_DELEGATOR_PUBLIC_HOSTNAME: sg-dev-fs-pingdelegator.ping-devops.com
+    PD_DELEGATOR_PUBLIC_PORT: "443"
+    PD_ENGINE_PRIVATE_HOSTNAME: pingdirectory
+    PF_ENGINE_PRIVATE_HOSTNAME: pingfederate-engine
+
+#############################################################
+# pingfederate-engine values
+#############################################################
+pingfederate-engine:
+  enabled: true
+  envs:
+    SERVER_PROFILE_PATH: profiles/pingfederate
+    SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd
+    #changeme to your <release-name>-hostname.domain
+    PF_ADMIN_PUBLIC_HOSTNAME: sg-dev-fs-pingfederate-admin.ping-devops.com
+    PF_ENGINE_PUBLIC_HOSTNAME: sg-dev-fs-pingfederate-engine.ping-devops.com
+    PF_ADMIN_PUBLIC_PORT: "443"
+    PF_ENGINE_PUBLIC_PORT: "443"
+    PD_DELEGATOR_PUBLIC_HOSTNAME: sg-dev-fs-pingdelegator.ping-devops.com
+    PD_DELEGATOR_PUBLIC_PORT: "443"
+    PD_ENGINE_PRIVATE_HOSTNAME: pingdirectory
+    PF_LOG_LEVEL: DEBUG
+    PF_ENGINE_PRIVATE_HOSTNAME: pingfederate-engine
+    PF_ADMIN_PORT: "9999"
+
+#############################################################
+# pingdirectory values
+#############################################################
+pingdirectory:
+  enabled: true
+  envs:
+    SERVER_PROFILE_PATH: profiles/pingdirectory
+    SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd 
     # variables that say PUBLIC_HOSTNAME
     #changeme to your <release-name>-hostname
     PF_ADMIN_PUBLIC_HOSTNAME: sg-dev-fs-pingfederate-admin.ping-devops.com
@@ -49,56 +91,14 @@ pingdirectory:
     PD_DELEGATOR_PUBLIC_PORT: "443"
     PD_ENGINE_PRIVATE_HOSTNAME: pingdirectory
     PF_ENGINE_PRIVATE_HOSTNAME: pingfederate-engine
-pingfederate-admin:
-  chartEnabled: true
-  image:
-    name: pingfederate
-    pullPolicy: IfNotPresent
-    repository: 574076504146.dkr.ecr.us-west-2.amazonaws.com/docker-builds
-    tag: 10.1.2-alpine-az11-2010-31fb148c
-  # image:
-  #   name: pingfederate
-  #   pullPolicy: IfNotPresent
-  #   repository: pingidentity
-  #   tag: "2010"
+    MAKELDIF_USERS: "2000"
+
+#############################################################
+# pingdataconsole values
+#############################################################
+pingdataconsole:
+  enabled: true
   envs:
-    SERVER_PROFILE_PATH: baseline/pingfederate
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
-    #changeme to your <release-name>-hostname
-    PF_ADMIN_PUBLIC_HOSTNAME: sg-dev-fs-pingfederate-admin.ping-devops.com
-    PF_ENGINE_PUBLIC_HOSTNAME: sg-dev-fs-pingfederate-engine.ping-devops.com
-    PF_ADMIN_PUBLIC_PORT: "443"
-    PF_ENGINE_PUBLIC_PORT: "443"
-    PD_DELEGATOR_PUBLIC_HOSTNAME: sg-dev-fs-pingdelegator.ping-devops.com
-    PD_DELEGATOR_PUBLIC_PORT: "443"
-    PD_ENGINE_PRIVATE_HOSTNAME: pingdirectory
-    PF_ENGINE_PRIVATE_HOSTNAME: pingfederate-engine
-    PF_DELETE_ME: something
-pingfederate-engine:
-  # container:
-  #   replicaCount: 3
-  image:
-    name: pingfederate
-    pullPolicy: IfNotPresent
-    repository: 574076504146.dkr.ecr.us-west-2.amazonaws.com/docker-builds
-    tag: 10.1.2-alpine-az11-2010-31fb148c
-  # image:
-  #   name: pingfederate
-  #   pullPolicy: IfNotPresent
-  #   repository: pingidentity
-  #   tag: "2010"
-  chartEnabled: true
-  envs:
-    SERVER_PROFILE_PATH: baseline/pingfederate
-    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
-    #changeme to your <release-name>-hostname
-    PF_ADMIN_PUBLIC_HOSTNAME: sg-dev-fs-pingfederate-admin.ping-devops.com
-    PF_ENGINE_PUBLIC_HOSTNAME: sg-dev-fs-pingfederate-engine.ping-devops.com
-    PF_ADMIN_PUBLIC_PORT: "443"
-    PF_ENGINE_PUBLIC_PORT: "443"
-    PD_DELEGATOR_PUBLIC_HOSTNAME: sg-dev-fs-pingdelegator.ping-devops.com
-    PD_DELEGATOR_PUBLIC_PORT: "443"
-    PD_ENGINE_PRIVATE_HOSTNAME: pingdirectory
-    PF_LOG_LEVEL: DEBUG
-    PF_ENGINE_PRIVATE_HOSTNAME: pingfederate-engine
-    # SERVER_PROFILE_SHA: _git-sha_
+    SERVER_PROFILE_PATH: baseline/pingdataconsole
+    SERVER_PROFILE_BRANCH: master
