@@ -45,5 +45,5 @@ jobs:
         aws-region: us-east-2
     - name: Test AWS
       run: sh ci_scripts/install_dependencies.sh
-      
+
       
