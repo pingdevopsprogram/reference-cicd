@@ -44,6 +44,6 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-2
     - name: Test AWS
-      run: sh ci_scripts/install_dependencies.sh
+      run: sh ci-scripts/install-dependencies.sh
 
       
