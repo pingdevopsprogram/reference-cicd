@@ -22,7 +22,11 @@ helm upgrade --install \
   -f helm/dev-values.yaml \
   --wait --timeout 10m0s
 
+
+## remove old integration test
+kubectl delete pod integration-tests
 ## kickoff integration tests
-kubectl run microservices-tests -i --rm \
+
+kubectl run integration-tests -i --rm \
   --restart=Never --image=samirgandhi/integration-tests \
   -- run /etc/tests/refci-tests.postman_collection.json --insecure --ignore-redirects
