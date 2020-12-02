@@ -49,12 +49,17 @@ jobs:
         chmod +x ./aws-iam-authenticator
         mkdir -p $HOME/bin && cp ./aws-iam-authenticator $HOME/bin/aws-iam-authenticator && export PATH=$PATH:$HOME/bin
         aws-iam-authenticator help
-    - name: Test Kubectl
-      uses: steebchen/kubectl@master
-      env:
-        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_YAML }}
-      with:
-        args: get pods
+        curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+        chmod +x ./kubectl
+        sudo mv ./kubectl /usr/local/bin/kubectl
+        mkdir ${HOME}/.kube
+        echo "$KUBE_CONFIG_YAML" | base64 --decode > ${HOME}/.kube/config
+#     - name: Test Kubectl
+#       uses: steebchen/kubectl@master
+#       env:
+#         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_YAML }}
+#       with:
+#         args: get pods
       
 #       run: sh ci-scripts/install-dependencies.sh
 #     - name: Setup Environment
