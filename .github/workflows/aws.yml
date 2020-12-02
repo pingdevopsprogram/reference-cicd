@@ -64,30 +64,21 @@ jobs:
         helm repo ls
         helm ls
         echo "ended install"
-#     - name: Test Kubectl
-#       uses: steebchen/kubectl@master
-#       env:
-#         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_YAML }}
-#       with:
-#         args: get pods
-      
-#       run: sh ci-scripts/install-dependencies.sh
-#     - name: Setup Environment
-#       run: |
-#         mkdir ${HOME}/.kube
-#         echo "${{ secrets.KUBE_CONFIG_YAML}} " | base64 --decode > ${HOME}/.kube/config
-#         kubectl version
-#         kubectl create secret generic devops-secret --from-literal=PING_IDENTITY_DEVOPS_USER="${PING_IDENTITY_DEVOPS_USER}" --from-literal=PING_IDENTITY_DEVOPS_KEY="${PING_IDENTITY_DEVOPS_KEY}"
-#         aws --version
-#         aws-iam-authenticator help
-#         kubectl get all
-#         curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
-#         sudo apt-get install apt-transport-https --yes
-#         echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-#         sudo apt-get update
-#         sudo apt-get -y install helm
-#         helm repo add pingidentity https://helm.pingidentity.com/
-#         helm repo update
-#         helm repo ls
-#         helm ls
-#         echo "ended install"
+    - name: Deploy Changes
+      run: |
+        for D in ./profiles/* ; do 
+        if [ -d "${D}" ]; then _prodName=$(basename "${D}") ; dirr="${D}" ;
+        eval "${_prodName}Sha=$(git log -n 1 --pretty=format:%H -- "$dirr" | cut -c 1-8)" ; fi ; done
+        
+        helm upgrade --install \
+          sg-dev-fs pingidentity/ping-devops \
+          --set pingfederate-admin.envs.SERVER_PROFILE_SHA="${pingfederateSha}" \
+          --set pingfederate-engine.envs.SERVER_PROFILE_SHA="${pingfederateSha}" \
+          --set pingdirectory.envs.SERVER_PROFILE_SHA="${pingdirectorySha}" \
+          --set global.envs.SERVER_PROFILE_BRANCH="${{ github.ref }}" \
+          -f helm/dev-values.yaml \
+          --wait --timeout 10m0s
+    - name: Integration Test
+      run: |
+        kubectl delete pod integration-tests
+        kubectl run integration-tests -i --rm --restart=Never --image=samirgandhi/integration-tests -- run /etc/tests/refci-tests.postman_collection.json --insecure --ignore-redirects
