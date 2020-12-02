@@ -18,6 +18,6 @@ helm upgrade --install \
   --set pingfederate-admin.envs.SERVER_PROFILE_SHA="${pingfederateSha}" \
   --set pingfederate-engine.envs.SERVER_PROFILE_SHA="${pingfederateSha}" \
   --set pingdirectory.envs.SERVER_PROFILE_SHA="${pingdirectorySha}" \
-  --set global.envs.SERVER_PROFILE_BRANCH="${GITHUB_REF}" \
+  --set global.envs.SERVER_PROFILE_BRANCH="$(echo ${GITHUB_REF} | cut -b 12-)" \
   -f helm/dev-values.yaml \
   --wait --timeout 10m0s
