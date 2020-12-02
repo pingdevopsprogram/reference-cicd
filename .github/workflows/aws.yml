@@ -80,5 +80,5 @@ jobs:
           --wait --timeout 10m0s
     - name: Integration Test
       run: |
-        kubectl delete pod integration-tests
+        kubectl delete pod integration-tests --ignore-not-found
         kubectl run integration-tests -i --rm --restart=Never --image=samirgandhi/integration-tests -- run /etc/tests/refci-tests.postman_collection.json --insecure --ignore-redirects
