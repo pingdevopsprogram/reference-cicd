@@ -18,7 +18,7 @@ helm upgrade --install \
   --set pingfederate-admin.envs.SERVER_PROFILE_SHA="${pingfederateSha}" \
   --set pingfederate-engine.envs.SERVER_PROFILE_SHA="${pingfederateSha}" \
   --set pingdirectory.envs.SERVER_PROFILE_SHA="${pingdirectorySha}" \
-  --set global.envs.SERVER_PROFILE_BRANCH="$(git rev-parse --abbrev-ref HEAD)" \
+  --set global.envs.SERVER_PROFILE_BRANCH="${TRAVIS_BRANCH}" \
   -f helm/dev-values.yaml \
   --wait --timeout 10m0s
 
