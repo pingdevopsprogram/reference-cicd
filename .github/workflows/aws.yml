@@ -43,24 +43,30 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-2
-    - name: install dependencies
-      run: sh ci-scripts/install-dependencies.sh
-    - name: Setup Environment
-      run: |
-        mkdir ${HOME}/.kube
-        echo "${{ secrets.KUBE_CONFIG_YAML}} " | base64 --decode > ${HOME}/.kube/config
-        kubectl version
-        kubectl create secret generic devops-secret --from-literal=PING_IDENTITY_DEVOPS_USER="${PING_IDENTITY_DEVOPS_USER}" --from-literal=PING_IDENTITY_DEVOPS_KEY="${PING_IDENTITY_DEVOPS_KEY}"
-        aws --version
-        aws-iam-authenticator help
-        kubectl get all
-        curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
-        sudo apt-get install apt-transport-https --yes
-        echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-        sudo apt-get update
-        sudo apt-get -y install helm
-        helm repo add pingidentity https://helm.pingidentity.com/
-        helm repo update
-        helm repo ls
-        helm ls
-        echo "ended install"
+    - name: Test Kubectl
+      uses: steebchen/kubectl@master
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_YAML }}
+      with:
+        args: get pods
+      
+#       run: sh ci-scripts/install-dependencies.sh
+#     - name: Setup Environment
+#       run: |
+#         mkdir ${HOME}/.kube
+#         echo "${{ secrets.KUBE_CONFIG_YAML}} " | base64 --decode > ${HOME}/.kube/config
+#         kubectl version
+#         kubectl create secret generic devops-secret --from-literal=PING_IDENTITY_DEVOPS_USER="${PING_IDENTITY_DEVOPS_USER}" --from-literal=PING_IDENTITY_DEVOPS_KEY="${PING_IDENTITY_DEVOPS_KEY}"
+#         aws --version
+#         aws-iam-authenticator help
+#         kubectl get all
+#         curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
+#         sudo apt-get install apt-transport-https --yes
+#         echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+#         sudo apt-get update
+#         sudo apt-get -y install helm
+#         helm repo add pingidentity https://helm.pingidentity.com/
+#         helm repo update
+#         helm repo ls
+#         helm ls
+#         echo "ended install"
