@@ -66,6 +66,7 @@ jobs:
         echo "ended install"
       # eval sha of profile dirs and deploy chart
     - name: Deploy Changes
+      uses: actions/checkout@v2
       run: sh ci-scripts/helm-deploy.sh
     - name: Integration Test
       run: |

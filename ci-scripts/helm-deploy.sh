@@ -8,6 +8,7 @@ for D in ./profiles/* ; do
     _prodName=$(basename "${D}")
     dirr="${D}"
     eval "${_prodName}Sha=$(git log -n 1 --pretty=format:%H -- "$dirr" | cut -c 1-8)"
+    echo "eval ${_prodName}Sha"
   fi
 done
 
