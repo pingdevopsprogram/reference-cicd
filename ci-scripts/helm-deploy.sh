@@ -8,8 +8,8 @@ for D in ./profiles/* ; do
     _prodName=$(basename "${D}")
     dirr="${D}"
     eval echo "${_prodName}Sha"
-    git rev-list --no-merges --all  -- "$dirr" | head -1
-    eval "${_prodName}Sha=$(git rev-list --no-merges --all  -- "$dirr" | head -1 | cut -c 1-8)"
+    git rev-list -n 1 --no-merges --all  -- "$dirr"
+    eval "${_prodName}Sha=$(git rev-list -n 1 --no-merges --all  -- "$dirr" | cut -c 1-8)"
   fi
 done
 
