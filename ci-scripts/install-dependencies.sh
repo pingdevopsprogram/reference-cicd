@@ -10,7 +10,7 @@ sudo ./aws/install
 # INSTALL aws-iam-authenticator
 curl -o aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/1.18.8/2020-09-18/bin/linux/amd64/aws-iam-authenticator
 chmod +x ./aws-iam-authenticator
-mkdir -p $HOME/bin && cp ./aws-iam-authenticator $HOME/bin/aws-iam-authenticator && export PATH=$PATH:$HOME/bin
+mkdir -p $HOME/bin && cp ./aws-iam-authenticator $HOME/bin/aws-iam-authenticator && echo PATH=$PATH:$HOME/bin
 aws-iam-authenticator help
 
 if test -n "$AWS_CONFIG" ; then
@@ -38,7 +38,7 @@ sudo apt-get install apt-transport-https --yes
 echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
 sudo apt-get update
 sudo apt-get -y install helm
-helm repo add pingidentity https://helm.pingidentity.com/devops
+helm repo add pingidentity https://helm.pingidentity.com/
 helm repo update
 
 
