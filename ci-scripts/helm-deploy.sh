@@ -9,10 +9,15 @@ for D in ./profiles/* ; do
     dirr="${D}"
     echo "${D}"
     eval echo "${_prodName}Sha"
+    sleep 1
     git rev-list -n 1 --no-merges --all  -- "$dirr"
+    sleep 1
     git --no-pager log -n 1 --pretty=format:%h -- "$dirr"
+    sleep 1
     git --no-pager log -n 1 HEAD --pretty=format:%h -- "$dirr"
+    sleep 1
     git --no-pager log -n 1 restart-helm --pretty=format:%h -- "$dirr"
+    sleep 1
     eval "${_prodName}Sha=$(git rev-list -n 1 --no-merges --all  -- "$dirr" | cut -c 1-8)"
   fi
 done
