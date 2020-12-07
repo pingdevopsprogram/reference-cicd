@@ -7,12 +7,17 @@ for D in ./profiles/* ; do
   if [ -d "${D}" ]; then 
     _prodName=$(basename "${D}")
     dirr="${D}"
+    echo "${D}"
     eval echo "${_prodName}Sha"
     git rev-list -n 1 --no-merges --all  -- "$dirr"
+    git --no-pager log -n 1 --pretty=format:%h -- "$dirr"
+    git --no-pager log -n 1 HEAD --pretty=format:%h -- "$dirr"
+    git --no-pager log -n 1 restart-helm --pretty=format:%h -- "$dirr"
     eval "${_prodName}Sha=$(git rev-list -n 1 --no-merges --all  -- "$dirr" | cut -c 1-8)"
   fi
 done
 
+git --version
 # # install the new profiles, but don't move on until install is successfully deployed. 
 # # tied to chart version to avoid breaking changes.
 # helm upgrade --install \
