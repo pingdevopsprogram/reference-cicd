@@ -2,6 +2,6 @@
 ${VERBOSE} && set -x
 
 # shellcheck source=pingcommon.lib.sh
-. "${HOOKS_DIR}/pingcommon.lib.sh"
-echo_yellow "waiting for PD"
-wait-for pingdirectory:389
+# . "${HOOKS_DIR}/pingcommon.lib.sh"
+# echo_yellow "waiting for PD"
+# wait-for pingdirectory:389
