@@ -24,14 +24,14 @@ for _prodName in  pingdirectory pingfederate_admin pingfederate; do
   case ${_prodName} in
     pingdirectory)
       timeout="10m0s"
-      _helmVars='--set pingdirectory.envs.PD_PROFILE_SHA="$(eval "echo \${${product}sha}")"'
+      _helmVars="--set pingdirectory.envs.PD_PROFILE_SHA=${pingdirectorySha}"
       ;;
     pingfederate_admin)
-      _helmVars='--set pingfederate-admin.envs.PF_ADMIN_PROFILE_SHA="${pingfederate_adminSha} --set pingfederate-admin.envs.PF_PROFILE_SHA="${pingfederateSha}'
+      _helmVars="--set pingfederate-admin.envs.PF_ADMIN_PROFILE_SHA=${pingfederate_adminSha} --set pingfederate-admin.envs.PF_PROFILE_SHA=${pingfederateSha}"
       timeout="1m30s"
       ;;
     pingfederate)
-      _helmVars='--set pingfederate-engine.envs.PF_PROFILE_SHA="${pingfederateSha}'
+      _helmVars="--set pingfederate-engine.envs.PF_PROFILE_SHA=${pingfederateSha}"
       timeout="2m0s"
       ;;
     *)
@@ -41,7 +41,7 @@ for _prodName in  pingdirectory pingfederate_admin pingfederate; do
 
   helm upgrade --install \
     "${PING_ENV}" pingidentity/ping-devops \
-    "${_helmVars}" \
+    ${_helmVars} \
     --set global.envs.SERVER_PROFILE_BRANCH="${_ref}" \
     -f helm/dev-values.yaml \
     --force --atomic --timeout "${timeout}"
