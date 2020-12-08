@@ -18,7 +18,7 @@ for D in ./profiles/* ; do
 done
 
 #try to minimize extended crashloops
-_timeout="4m0s"
+_timeout="10m0s"
 test "${pingdirectorySha}" = "${_currentSha}" && _timeout="10m0s"
 
 # # install the new profiles, but don't move on until install is successfully deployed. 
