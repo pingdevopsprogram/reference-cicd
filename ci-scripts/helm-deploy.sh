@@ -31,7 +31,7 @@ helm upgrade --install \
   --set pingfederate-admin.envs.PF_ADMIN_PROFILE_SHA="${pingfederate_adminSha}" \
   --set pingfederate-engine.envs.PF_PROFILE_SHA="${pingfederateSha}" \
   --set global.envs.SERVER_PROFILE_BRANCH="${_ref}" \
-  --set global.envs.SERVER_PROFILE_ADMIN_BRANCH="${_ref}" \
+  --set pingfederate-admin.envs.SERVER_PROFILE_BASE_BRANCH="${_ref}" \
   -f helm/dev-values.yaml \
   --force --atomic --timeout "${_timeout}"
 
