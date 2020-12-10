@@ -61,6 +61,10 @@ pingfederate-admin:
 #############################################################
 pingfederate-engine:
   enabled: true
+  container:
+    waitFor:
+      pingdirectory:
+        service: ldaps
   envs:
     SERVER_PROFILE_PATH: profiles/pingfederate
     SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd
