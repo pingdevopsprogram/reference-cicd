@@ -33,6 +33,7 @@ helm upgrade --install \
   --set global.envs.SERVER_PROFILE_BRANCH="${_ref}" \
   --set pingfederate-admin.envs.SERVER_PROFILE_BASE_BRANCH="${_ref}" \
   -f helm/dev-values.yaml \
+  --version 0.3.6 \
   --force --atomic --timeout "${_timeout}"
 
 test "${?}" -ne 0 && exit 1
