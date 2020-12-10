@@ -18,8 +18,9 @@ for D in ./profiles/* ; do
 done
 
 #try to minimize extended crashloops
-_timeout="10m0s"
+_timeout="5m0s"
 test "${pingdirectorySha}" = "${_currentSha}" && _timeout="10m0s"
+test ! "$(helm history "${PING_ENV}")" && _timeout="15m0s"
 
 # # install the new profiles, but don't move on until install is successfully deployed. 
 # # tied to chart version to avoid breaking changes.
