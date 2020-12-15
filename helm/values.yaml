@@ -15,7 +15,7 @@
 # Global values
 ############################################################
 global:
-  addReleaseNameToResource: append
+  addReleaseNameToResource: prepend
   ingress:
     enabled: true
     addReleaseNameToHost: prepend
@@ -50,22 +50,6 @@ pingfederate-admin:
     SERVER_PROFILE_PARENT: BASE
     SERVER_PROFILE_PATH: profiles/pingfederate_admin
     SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd
-## REMOVE ONCE CHART IS UPDATED
-  services:
-    https:
-      servicePort: 9999
-      containerPort: 9999
-      ingressPort: 443
-      dataService: true
-    clusterbind:
-      servicePort: 7600
-      containerPort: 7600
-      clusterService: true
-    clusterfail:
-      servicePort: 7700
-      containerPort: 7700
-      clusterService: true
-    clusterExternalDNSHostname:
 
 #############################################################
 # pingfederate-engine values
@@ -76,22 +60,6 @@ pingfederate-engine:
     SERVER_PROFILE_PATH: profiles/pingfederate
     SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd
     PF_LOG_LEVEL: DEBUG
-## REMOVE ONCE CHART IS UPDATED
-  services:
-    https:
-      servicePort: 9031
-      containerPort: 9031
-      ingressPort: 443
-      dataService: true
-    clusterbind:
-      servicePort: 7600
-      containerPort: 7600
-      clusterService: true
-    clusterfail:
-      servicePort: 7700
-      containerPort: 7700
-      clusterService: true
-    clusterExternalDNSHostname:
 
 #############################################################
 # pingdirectory values

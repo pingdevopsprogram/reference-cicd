@@ -1,14 +1,10 @@
 #!/usr/bin/env sh
 
-set -x -e
+set -x
+# set -e
 
-_ref=$(git rev-parse --abbrev-ref HEAD)
-PING_ENV=${PING_ENV:=sg-dev-fs}
-K8S_NAMESPACE=${K8S_NAMESPACE:=sg-dev}
-VALUES_FILE=${VALUES_FILE:=dev_values.yaml}
-CHART_VERSION="0.3.6"
-echo ${_ref}
-_currentSha=$(git log -n 1 --pretty=format:%h)
+# shellcheck source=./ci_tools.lib.sh
+. ./ci_tools/ci_tools.lib.sh
 
 ## builds sha for each product based on the folder name in ./profiles/* (e.g. pingfederateSha)
   ## this determines what will be redeployed. 
@@ -22,23 +18,23 @@ done
 
 #try to minimize extended crashloops
 _timeout="5m0s"
-test "${pingdirectorySha}" = "${_currentSha}" && _timeout="10m0s"
+test "${pingdirectorySha}" = "${CURRENT_SHA}" && _timeout="10m0s"
 test ! "$(helm history "${PING_ENV}")" && _timeout="15m0s"
 
 # # install the new profiles, but don't move on until install is successfully deployed. 
 # # tied to chart version to avoid breaking changes.
 helm upgrade --install \
-  "${PING_ENV}" pingidentity/ping-devops \
+  "${RELEASE}" pingidentity/ping-devops \
   --set pingdirectory.envs.PD_PROFILE_SHA="${pingdirectorySha}" \
   --set pingfederate-admin.envs.PF_PROFILE_SHA="${pingfederateSha}" \
   --set pingfederate-admin.envs.PF_ADMIN_PROFILE_SHA="${pingfederate_adminSha}" \
   --set pingfederate-engine.envs.PF_PROFILE_SHA="${pingfederateSha}" \
-  --set global.envs.SERVER_PROFILE_BRANCH="${_ref}" \
-  --set pingfederate-admin.envs.SERVER_PROFILE_BASE_BRANCH="${_ref}" \
-  -f "helm/${VALUES_FILE}" \
+  --set global.envs.SERVER_PROFILE_BRANCH="${REF}" \
+  --set pingfederate-admin.envs.SERVER_PROFILE_BASE_BRANCH="${REF}" \
+  -f "${VALUES_FILE}" \
   --namespace "${K8S_NAMESPACE}" --version "${CHART_VERSION}" \
   --force --atomic --timeout "${_timeout}"
 
 test "${?}" -ne 0 && exit 1
 
-helm history "${PING_ENV}"
+helm history "${RELEASE}"

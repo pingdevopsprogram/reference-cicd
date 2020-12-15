@@ -28,8 +28,7 @@ on:
   # but only for the main branch
   push:
     branches-ignore:
-      - github-actions
-      - staging
+      - qa
       - main
       - master
 
