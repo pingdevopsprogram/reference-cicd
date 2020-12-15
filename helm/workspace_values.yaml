@@ -15,7 +15,7 @@
 # Global values
 ############################################################
 global:
-  addReleaseNameToResource: none
+  addReleaseNameToResource: append
   ingress:
     enabled: true
     addReleaseNameToHost: prepend
@@ -50,15 +50,22 @@ pingfederate-admin:
     SERVER_PROFILE_PARENT: BASE
     SERVER_PROFILE_PATH: profiles/pingfederate_admin
     SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd
-    #changeme to your <release-name>-hostname
-    # PF_ADMIN_PUBLIC_HOSTNAME: sg-dev-fs-pingfederate-admin.ping-devops.com
-    # PF_ENGINE_PUBLIC_HOSTNAME: sg-dev-fs-pingfederate-engine.ping-devops.com
-    # PF_ADMIN_PUBLIC_PORT: "443"
-    # PF_ENGINE_PUBLIC_PORT: "443"
-    # PD_DELEGATOR_PUBLIC_HOSTNAME: sg-dev-fs-pingdelegator.ping-devops.com
-    # PD_DELEGATOR_PUBLIC_PORT: "443"
-    # PD_ENGINE_PRIVATE_HOSTNAME: pingdirectory
-    # PF_ENGINE_PRIVATE_HOSTNAME: pingfederate-engine
+## REMOVE ONCE CHART IS UPDATED
+  services:
+    https:
+      servicePort: 9999
+      containerPort: 9999
+      ingressPort: 443
+      dataService: true
+    clusterbind:
+      servicePort: 7600
+      containerPort: 7600
+      clusterService: true
+    clusterfail:
+      servicePort: 7700
+      containerPort: 7700
+      clusterService: true
+    clusterExternalDNSHostname:
 
 #############################################################
 # pingfederate-engine values
@@ -68,17 +75,23 @@ pingfederate-engine:
   envs:
     SERVER_PROFILE_PATH: profiles/pingfederate
     SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd
-    #changeme to your <release-name>-hostname.domain
-    # PF_ADMIN_PUBLIC_HOSTNAME: sg-dev-fs-pingfederate-admin.ping-devops.com
-    # PF_ENGINE_PUBLIC_HOSTNAME: sg-dev-fs-pingfederate-engine.ping-devops.com
-    # PF_ADMIN_PUBLIC_PORT: "443"
-    # PF_ENGINE_PUBLIC_PORT: "443"
-    # PD_DELEGATOR_PUBLIC_HOSTNAME: sg-dev-fs-pingdelegator.ping-devops.com
-    # PD_DELEGATOR_PUBLIC_PORT: "443"
-    # PD_ENGINE_PRIVATE_HOSTNAME: pingdirectory
     PF_LOG_LEVEL: DEBUG
-    # PF_ENGINE_PRIVATE_HOSTNAME: pingfederate-engine
-    # PF_ADMIN_PORT: "9999"
+## REMOVE ONCE CHART IS UPDATED
+  services:
+    https:
+      servicePort: 9031
+      containerPort: 9031
+      ingressPort: 443
+      dataService: true
+    clusterbind:
+      servicePort: 7600
+      containerPort: 7600
+      clusterService: true
+    clusterfail:
+      servicePort: 7700
+      containerPort: 7700
+      clusterService: true
+    clusterExternalDNSHostname:
 
 #############################################################
 # pingdirectory values
@@ -88,16 +101,6 @@ pingdirectory:
   envs:
     SERVER_PROFILE_PATH: profiles/pingdirectory
     SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd 
-    # variables that say PUBLIC_HOSTNAME
-    #changeme to your <release-name>-hostname
-    PF_ADMIN_PUBLIC_HOSTNAME: sg-dev-fs-pingfederate-admin.ping-devops.com
-    PF_ENGINE_PUBLIC_HOSTNAME: sg-dev-fs-pingfederate-engine.ping-devops.com
-    PF_ADMIN_PUBLIC_PORT: "443"
-    PF_ENGINE_PUBLIC_PORT: "443"
-    PD_DELEGATOR_PUBLIC_HOSTNAME: sg-dev-fs-pingdelegator.ping-devops.com
-    PD_DELEGATOR_PUBLIC_PORT: "443"
-    PD_ENGINE_PRIVATE_HOSTNAME: pingdirectory
-    PF_ENGINE_PRIVATE_HOSTNAME: pingfederate-engine
     MAKELDIF_USERS: "2000"
 
 #############################################################

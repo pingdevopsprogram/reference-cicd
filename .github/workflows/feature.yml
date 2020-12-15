@@ -24,9 +24,16 @@
 #    and best practices on handling the access key credentials.
 
 on:
+  # Trigger the workflow on push or pull request,
+  # but only for the main branch
   push:
+    branches-ignore:
+      - github-actions
+      - staging
+      - main
+      - master
 
-name: Deploy to EKS
+name: Deploy Feature Env
 
 jobs:
   deploy:
@@ -68,7 +75,7 @@ jobs:
         echo "ended install"
       # eval sha of profile dirs and deploy chart
     - name: Deploy Changes
-      run: sh ci-scripts/helm-deploy.sh
+      run: sh ci_tools/helm_deploy.sh
     - name: Integration Test
       run: |
         kubectl delete pod integration-tests --ignore-not-found

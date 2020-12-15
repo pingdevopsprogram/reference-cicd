@@ -4,6 +4,9 @@ set -x -e
 
 _ref=$(git rev-parse --abbrev-ref HEAD)
 PING_ENV=${PING_ENV:=sg-dev-fs}
+K8S_NAMESPACE=${K8S_NAMESPACE:=sg-dev}
+VALUES_FILE=${VALUES_FILE:=dev_values.yaml}
+CHART_VERSION="0.3.6"
 echo ${_ref}
 _currentSha=$(git log -n 1 --pretty=format:%h)
 
@@ -32,8 +35,8 @@ helm upgrade --install \
   --set pingfederate-engine.envs.PF_PROFILE_SHA="${pingfederateSha}" \
   --set global.envs.SERVER_PROFILE_BRANCH="${_ref}" \
   --set pingfederate-admin.envs.SERVER_PROFILE_BASE_BRANCH="${_ref}" \
-  -f helm/dev-values.yaml \
-  --version 0.3.6 \
+  -f "helm/${VALUES_FILE}" \
+  --namespace "${K8S_NAMESPACE}" --version "${CHART_VERSION}" \
   --force --atomic --timeout "${_timeout}"
 
 test "${?}" -ne 0 && exit 1
