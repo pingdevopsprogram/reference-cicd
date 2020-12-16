@@ -26,20 +26,22 @@ export RELEASE
 envsubst < "${VALUES_FILE}" > "${VALUES_FILE}.final"
 VALUES_FILE="${VALUES_FILE}.final"
 
-# # install the new profiles, but don't move on until install is successfully deployed. 
-# # tied to chart version to avoid breaking changes.
-helm upgrade --install \
-  "${RELEASE}" pingidentity/ping-devops \
-  --set pingdirectory.envs.PD_PROFILE_SHA="${pingdirectorySha}" \
-  --set pingfederate-admin.envs.PF_PROFILE_SHA="${pingfederateSha}" \
-  --set pingfederate-admin.envs.PF_ADMIN_PROFILE_SHA="${pingfederate_adminSha}" \
-  --set pingfederate-engine.envs.PF_PROFILE_SHA="${pingfederateSha}" \
-  --set global.envs.SERVER_PROFILE_BRANCH="${REF}" \
-  --set pingfederate-admin.envs.SERVER_PROFILE_BASE_BRANCH="${REF}" \
-  -f "${VALUES_FILE}" \
-  --namespace "${K8S_NAMESPACE}" --version "${CHART_VERSION}" \
-  --force --atomic --timeout "${_timeout}"
+cat $VALUES_FILE
 
-test "${?}" -ne 0 && exit 1
+# # # install the new profiles, but don't move on until install is successfully deployed. 
+# # # tied to chart version to avoid breaking changes.
+# helm upgrade --install \
+#   "${RELEASE}" pingidentity/ping-devops \
+#   --set pingdirectory.envs.PD_PROFILE_SHA="${pingdirectorySha}" \
+#   --set pingfederate-admin.envs.PF_PROFILE_SHA="${pingfederateSha}" \
+#   --set pingfederate-admin.envs.PF_ADMIN_PROFILE_SHA="${pingfederate_adminSha}" \
+#   --set pingfederate-engine.envs.PF_PROFILE_SHA="${pingfederateSha}" \
+#   --set global.envs.SERVER_PROFILE_BRANCH="${REF}" \
+#   --set pingfederate-admin.envs.SERVER_PROFILE_BASE_BRANCH="${REF}" \
+#   -f "${VALUES_FILE}" \
+#   --namespace "${K8S_NAMESPACE}" --version "${CHART_VERSION}" \
+#   --force --atomic --timeout "${_timeout}"
 
-helm history "${RELEASE}"
+# test "${?}" -ne 0 && exit 1
+
+# helm history "${RELEASE}"
