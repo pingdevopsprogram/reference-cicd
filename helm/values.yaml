@@ -41,32 +41,32 @@ global:
     PA_ADMIN_PUBLIC_PORT_HTTPS: "443"
     PA_ENGINE_PRIVATE_PORT_HTTPS: "3000"
     PA_ENGINE_PUBLIC_PORT_HTTPS: "443"
-    PA_ENGINE_PRIVATE_HOSTNAME: ${RELEASE}-pingaccess
-    PA_ENGINE_PUBLIC_HOSTNAME: ${RELEASE}-pingaccess-admin.example.com
+    PA_ENGINE_PRIVATE_HOSTNAME: feature-1-pingaccess
+    PA_ENGINE_PUBLIC_HOSTNAME: feature-1-pingaccess-admin.example.com
     PD_DELEGATOR_HTTPS_PRIVATE_PORT: "6443"
     PD_DELEGATOR_HTTPS_PUBLIC_PORT: "443"
-    PD_DELEGATOR_PRIVATE_HOSTNAME: ${RELEASE}-pingdelegator
-    PD_DELEGATOR_PUBLIC_HOSTNAME: ${RELEASE}-pingdelegator.example.com
+    PD_DELEGATOR_PRIVATE_HOSTNAME: feature-1-pingdelegator
+    PD_DELEGATOR_PUBLIC_HOSTNAME: feature-1-pingdelegator.example.com
     PD_ENGINE_PRIVATE_PORT_HTTPS: "443"
     PD_ENGINE_PUBLIC_PORT_HTTPS: "443"
     PD_ENGINE_PRIVATE_PORT_LDAP: "389"
     PD_ENGINE_PRIVATE_PORT_LDAPS: "636"
-    PD_ENGINE_PRIVATE_HOSTNAME: ${RELEASE}-pingdirectory
-    PD_ENGINE_PUBLIC_HOSTNAME: ${RELEASE}-pingdirectory.example.com
+    PD_ENGINE_PRIVATE_HOSTNAME: feature-1-pingdirectory
+    PD_ENGINE_PUBLIC_HOSTNAME: feature-1-pingdirectory.example.com
     PDG_ENGINE_PRIVATE_PORT_HTTPS: "443"
     PDG_ENGINE_PUBLIC_PORT_HTTPS: "443"
-    PDG_ENGINE_PRIVATE_HOSTNAME: ${RELEASE}-pingdatagovernance
-    PDG_ENGINE_PUBLIC_HOSTNAME: ${RELEASE}-pingdatagovernance.example.com
+    PDG_ENGINE_PRIVATE_HOSTNAME: feature-1-pingdatagovernance
+    PDG_ENGINE_PUBLIC_HOSTNAME: feature-1-pingdatagovernance.example.com
     PDS_ENGINE_PRIVATE_PORT_HTTPS: "443"
-    PDS_ENGINE_PRIVATE_HOSTNAME: ${RELEASE}-pingdatasync
+    PDS_ENGINE_PRIVATE_HOSTNAME: feature-1-pingdatasync
     PF_ADMIN_PRIVATE_PORT_HTTPS: "9999"
     PF_ADMIN_PUBLIC_PORT_HTTPS: "443"
-    PF_ADMIN_PRIVATE_HOSTNAME: ${RELEASE}-pingfederate-admin
-    PF_ADMIN_PUBLIC_HOSTNAME: ${RELEASE}-pingfederate-admin.example.com
+    PF_ADMIN_PRIVATE_HOSTNAME: feature-1-pingfederate-admin
+    PF_ADMIN_PUBLIC_HOSTNAME: feature-1-pingfederate-admin.example.com
     PF_ENGINE_PRIVATE_PORT_HTTPS: "9031"
     PF_ENGINE_PUBLIC_PORT_HTTPS: "443"
-    PF_ENGINE_PRIVATE_HOSTNAME: ${RELEASE}-pingfederate-engine
-    PF_ENGINE_PUBLIC_HOSTNAME: ${RELEASE}-pingfederate-engine.example.com
+    PF_ENGINE_PRIVATE_HOSTNAME: feature-1-pingfederate-engine
+    PF_ENGINE_PUBLIC_HOSTNAME: feature-1-pingfederate-engine.example.com
 #############################################################
 # pingfederate-admin values
 #############################################################
