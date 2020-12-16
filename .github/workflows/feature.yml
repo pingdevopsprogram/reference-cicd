@@ -76,6 +76,4 @@ jobs:
     - name: Deploy Changes
       run: sh ci_tools/helm_deploy.sh
     - name: Integration Test
-      run: |
-        kubectl delete pod integration-tests --ignore-not-found
-        kubectl run integration-tests -i --rm --restart=Never --image=samirgandhi/integration-tests -- run /etc/tests/refci-tests.postman_collection.json --insecure --ignore-redirects
+      run: sh ci_tools/run_postman.sh 08a31b94a3b9fd831861
