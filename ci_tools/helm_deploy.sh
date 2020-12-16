@@ -40,7 +40,7 @@ helm upgrade --install \
   --set pingfederate-admin.envs.SERVER_PROFILE_BASE_BRANCH="${REF}" \
   -f "${VALUES_FILE}" \
   --namespace "${K8S_NAMESPACE}" --version "${CHART_VERSION}" \
-  --force --atomic --timeout "${_timeout}"
+  --atomic --timeout "${_timeout}"
 
 test "${?}" -ne 0 && exit 1
 
