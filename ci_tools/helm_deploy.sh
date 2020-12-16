@@ -21,16 +21,16 @@ _timeout="5m0s"
 test "${pingdirectorySha}" = "${CURRENT_SHA}" && _timeout="10m0s"
 test ! "$(helm history "${RELEASE}")" && _timeout="15m0s"
 
-# REMOVE ALL THIS ONCE VARIABLES ARE DEFINED BY DEVOPS TEAM
-export RELEASE
-envsubst < "${VALUES_FILE}" > "${VALUES_FILE}.final"
-VALUES_FILE="${VALUES_FILE}.final"
+# # REMOVE ALL THIS ONCE VARIABLES ARE DEFINED BY DEVOPS TEAM
+# export RELEASE
+# envsubst < "${VALUES_FILE}" > "${VALUES_FILE}.final"
+# VALUES_FILE="${VALUES_FILE}.final"
 
 # cat $VALUES_FILE
 
 # # install the new profiles, but don't move on until install is successfully deployed. 
 # # tied to chart version to avoid breaking changes.
-helm upgrade --install --dry-run \
+helm upgrade --install \
   "${RELEASE}" pingidentity/ping-devops \
   --set pingdirectory.envs.PD_PROFILE_SHA="${pingdirectorySha}" \
   --set pingfederate-admin.envs.PF_PROFILE_SHA="${pingfederateSha}" \
