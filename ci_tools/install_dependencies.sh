@@ -30,7 +30,7 @@ kubectl version --client
 
 mkdir ${HOME}/.kube
 echo "$KUBE_CONFIG_YAML" | base64 --decode > ${HOME}/.kube/config
-
+chmod 400 ${HOME}/.kube/config
 
 # INSTALL helm
 curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
