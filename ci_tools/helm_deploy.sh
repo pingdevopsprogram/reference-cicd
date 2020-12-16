@@ -30,7 +30,7 @@ VALUES_FILE="${VALUES_FILE}.final"
 
 # # install the new profiles, but don't move on until install is successfully deployed. 
 # # tied to chart version to avoid breaking changes.
-helm upgrade --install \
+helm upgrade --install --dry-run \
   "${RELEASE}" pingidentity/ping-devops \
   --set pingdirectory.envs.PD_PROFILE_SHA="${pingdirectorySha}" \
   --set pingfederate-admin.envs.PF_PROFILE_SHA="${pingfederateSha}" \
