@@ -83,8 +83,5 @@ jobs:
         set -a
         source ci_tools/ci_tools.lib.sh
         kubectl get ing -l app.kubernetes.io/instance=${RELEASE} -o=custom-columns="NAME:.metadata.name,HOST:.spec.rules[*].host"
-    - name: pull-request-action
-      uses: vsoch/pull-request-action@1.0.6
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PULL_REQUEST_BRANCH: "master"
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v3
