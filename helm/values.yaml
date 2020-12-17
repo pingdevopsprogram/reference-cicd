@@ -1,0 +1,124 @@
+############################################################
+# Ping Identity DevOps values.yaml
+############################################################
+# The yaml is seperated into 2 major sections:
+#  - global - Represents the base set of values that will
+#             be used for each product, if that product
+#             doesn't override the global values.
+#
+#  - image  - For every image/product, the values will
+#             be merged with the global settings, and
+#             take precedence.
+############################################################
+
+############################################################
+# Global values
+############################################################
+global:
+  addReleaseNameToResource: prepend
+  ingress:
+    enabled: true
+    addReleaseNameToHost: prepend
+    defaultDomain: ping-devops.com
+    defaultTlsSecret:
+    annotations:
+      # nginx example
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      kubernetes.io/ingress.class: "nginx-public"
+  image:
+    repository: pingidentity
+    name:
+    tag: 2011
+    pullPolicy: IfNotPresent
+  license:
+    secret:
+      devOps: devops-secret
+# REMOVE ALL THIS ONCE VARIABLES ARE DEFINED BY DEVOPS TEAM
+  envs:
+    PING_IDENTITY_ACCEPT_EULA: "YES"
+    PA_ADMIN_PRIVATE_PORT_ACME: "8080"
+    PA_ADMIN_PRIVATE_PORT_HTTPS: "9000"
+    PA_ADMIN_PUBLIC_PORT_HTTPS: "443"
+    PA_ENGINE_PRIVATE_PORT_HTTPS: "3000"
+    PA_ENGINE_PUBLIC_PORT_HTTPS: "443"
+    PA_ENGINE_PRIVATE_HOSTNAME: ${RELEASE}-pingaccess
+    PA_ENGINE_PUBLIC_HOSTNAME: ${RELEASE}-pingaccess-admin.ping-devops.com
+    PD_DELEGATOR_HTTPS_PRIVATE_PORT: "6443"
+    PD_DELEGATOR_HTTPS_PUBLIC_PORT: "443"
+    PD_DELEGATOR_PRIVATE_HOSTNAME: ${RELEASE}-pingdelegator
+    PD_DELEGATOR_PUBLIC_HOSTNAME: ${RELEASE}-pingdelegator.ping-devops.com
+    PD_ENGINE_PRIVATE_PORT_HTTPS: "443"
+    PD_ENGINE_PUBLIC_PORT_HTTPS: "443"
+    PD_ENGINE_PRIVATE_PORT_LDAP: "389"
+    PD_ENGINE_PRIVATE_PORT_LDAPS: "636"
+    PD_ENGINE_PRIVATE_HOSTNAME: ${RELEASE}-pingdirectory
+    PD_ENGINE_PUBLIC_HOSTNAME: ${RELEASE}-pingdirectory.ping-devops.com
+    PDG_ENGINE_PRIVATE_PORT_HTTPS: "443"
+    PDG_ENGINE_PUBLIC_PORT_HTTPS: "443"
+    PDG_ENGINE_PRIVATE_HOSTNAME: ${RELEASE}-pingdatagovernance
+    PDG_ENGINE_PUBLIC_HOSTNAME: ${RELEASE}-pingdatagovernance.ping-devops.com
+    PDS_ENGINE_PRIVATE_PORT_HTTPS: "443"
+    PDS_ENGINE_PRIVATE_HOSTNAME: ${RELEASE}-pingdatasync
+    PF_ADMIN_PRIVATE_PORT_HTTPS: "9999"
+    PF_ADMIN_PUBLIC_PORT_HTTPS: "443"
+    PF_ADMIN_PRIVATE_HOSTNAME: ${RELEASE}-pingfederate-admin
+    PF_ADMIN_PUBLIC_HOSTNAME: ${RELEASE}-pingfederate-admin.ping-devops.com
+    PF_ENGINE_PRIVATE_PORT_HTTPS: "9031"
+    PF_ENGINE_PUBLIC_PORT_HTTPS: "443"
+    PF_ENGINE_PRIVATE_HOSTNAME: ${RELEASE}-pingfederate-engine
+    PF_ENGINE_PUBLIC_HOSTNAME: ${RELEASE}-pingfederate-engine.ping-devops.com
+#############################################################
+# pingfederate-admin values
+#############################################################
+pingfederate-admin:
+  enabled: true
+  container:
+    waitFor:
+      pingdirectory:
+        service: ldaps
+  image:
+    repository: pingidentity
+    name: pingfederate
+    tag: 10.2.0-edge
+    pullPolicy: Always
+  envs:
+    SERVER_PROFILE_BASE_PATH: profiles/pingfederate
+    SERVER_PROFILE_BASE_URL: https://github.com/pingdevopsprogram/reference-cicd
+    SERVER_PROFILE_PARENT: BASE
+    SERVER_PROFILE_PATH: profiles/pingfederate_admin
+    SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd
+
+#############################################################
+# pingfederate-engine values
+#############################################################
+pingfederate-engine:
+  enabled: true
+  image:
+    repository: pingidentity
+    name: pingfederate
+    tag: 10.2.0-edge
+    pullPolicy: Always
+  envs:
+    SERVER_PROFILE_PATH: profiles/pingfederate
+    SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd
+    PF_LOG_LEVEL: DEBUG
+
+#############################################################
+# pingdirectory values
+#############################################################
+pingdirectory:
+  enabled: true
+  envs:
+    SERVER_PROFILE_PATH: profiles/pingdirectory
+    SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd 
+    MAKELDIF_USERS: "2000"
+
+#############################################################
+# pingdataconsole values
+#############################################################
+pingdataconsole:
+  enabled: true
+  envs:
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: baseline/pingdataconsole
+    SERVER_PROFILE_BRANCH: master
