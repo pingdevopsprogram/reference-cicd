@@ -79,7 +79,7 @@ pingfederate-admin:
   image:
     repository: pingidentity
     name: pingfederate
-    tag: 10.2.0-edge
+    tag: 10.1.3-edge
     pullPolicy: Always
   envs:
     SERVER_PROFILE_BASE_PATH: profiles/pingfederate
@@ -96,7 +96,7 @@ pingfederate-engine:
   image:
     repository: pingidentity
     name: pingfederate
-    tag: 10.2.0-edge
+    tag: 10.1.3-edge
     pullPolicy: Always
   envs:
     SERVER_PROFILE_PATH: profiles/pingfederate
