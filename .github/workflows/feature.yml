@@ -77,3 +77,9 @@ jobs:
       run: sh ci_tools/helm_deploy.sh
     - name: Integration Test
       run: sh ci_tools/run_postman.sh 08a31b94a3b9fd831861
+    - name: Environment Info
+      run: |
+        echo "Your environment is ready!"
+        set -a
+        source ci_tools.lib.sh
+        kubectl get ing -l app.kubernetes.io/instance=${RELEASE} -o=custom-columns="NAME:.metadata.name,HOST:.spec.rules[*].host"
