@@ -85,5 +85,3 @@ jobs:
         kubectl get ing -l app.kubernetes.io/instance=${RELEASE} -o=custom-columns="NAME:.metadata.name,HOST:.spec.rules[*].host"
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
-      with:
-        branch: master
