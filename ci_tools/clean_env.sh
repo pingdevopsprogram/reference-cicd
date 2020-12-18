@@ -5,6 +5,13 @@
 ## Be sure: 
 ## 1. you're on the right git branch. 
 
+set -x
+env
+
+echo empty
+echo empty
+echo empty
+echo empty
 # shellcheck source=./ci_tools.lib.sh
 . ./ci_tools/ci_tools.lib.sh
 
