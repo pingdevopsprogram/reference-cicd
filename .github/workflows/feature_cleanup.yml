@@ -50,4 +50,6 @@ jobs:
         echo "ended install"
       # eval sha of profile dirs and deploy chart
     - name: Deploy Changes
-      run: sh ci_tools/clean_env.sh
+      run: |
+        export REF=$(echo $GITHUB_REF | sed -e "s#refs/heads/##g")
+        sh ci_tools/clean_env.sh

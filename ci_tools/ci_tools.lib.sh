@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 
-REF=$(git rev-parse --abbrev-ref HEAD)
+test -z "${REF}" && REF=$(git rev-parse --abbrev-ref HEAD)
+
 case "${REF}" in
   qa )
     RELEASE=${RELEASE:=qa} 
