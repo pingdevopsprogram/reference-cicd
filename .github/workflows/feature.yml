@@ -74,7 +74,9 @@ jobs:
         echo "ended install"
       # eval sha of profile dirs and deploy chart
     - name: Deploy Changes
-      run: sh ci_tools/helm_deploy.sh
+      run: |
+        export REF=${{ github.event.ref }}
+        sh ci_tools/helm_deploy.sh
     - name: Integration Test
       run: sh ci_tools/run_postman.sh 08a31b94a3b9fd831861
     - name: Environment Info

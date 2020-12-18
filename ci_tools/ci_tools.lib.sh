@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
-REF=$(git rev-parse --abbrev-ref HEAD)
-echo "${{ github.event.ref }}"
-test $? -eq 0 && REF="${{ github.event.ref }}"
+
+test -z "${REF}" && REF=$(git rev-parse --abbrev-ref HEAD)
 
 case "${REF}" in
   qa )
