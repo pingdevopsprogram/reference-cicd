@@ -87,6 +87,25 @@ pingfederate-admin:
     SERVER_PROFILE_PARENT: BASE
     SERVER_PROFILE_PATH: profiles/pingfederate_admin
     SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd
+    # will change per branch
+    PF_OIDC_CLIENT_ID: "c475b46d-d48f-4de1-9846-53ca0072f82a"
+    PF_OIDC_CLIENT_SECRET: "D~UMY~2h7A0hxE.UuRBdGHf4BPi61javHXWLdA.Uko.hF8pKXj1cbrN_oQjnRBhg"
+    # will change per account
+    PF_OIDC_CLIENT_AUTHN_METHOD: client_secret_basic
+    PF_OIDC_AUTHORIZATION_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/authorize"
+    PF_OIDC_TOKEN_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/token"
+    PF_OIDC_USER_INFO_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/userinfo"
+    PF_OIDC_END_SESSION_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/signoff"
+    PF_OIDC_ISSUER: https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as
+    # PF_OIDC_ACR_VALUES:
+    PF_OIDC_SCOPES: openid email profile
+    PF_OIDC_USERNAME_ATTRIBUTE_NAME: name
+    PF_OIDC_ROLE_ATTRIBUTE_NAME: pf_admin_roles
+    PF_OIDC_ROLE_ADMIN: fullAdmin
+    PF_OIDC_ROLE_CRYPTOMANAGER: fullAdmin
+    PF_OIDC_ROLE_USERADMIN: fullAdmin
+    PF_OIDC_ROLE_EXPRESSIONADMIN: fullAdmin
+    PF_OIDC_ROLE_AUDITOR: fullAdmin
 
 #############################################################
 # pingfederate-engine values
@@ -102,6 +121,25 @@ pingfederate-engine:
     SERVER_PROFILE_PATH: profiles/pingfederate
     SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd
     PF_LOG_LEVEL: DEBUG
+    # will change per branch
+    PF_OIDC_CLIENT_ID: "c475b46d-d48f-4de1-9846-53ca0072f82a"
+    PF_OIDC_CLIENT_SECRET: "D~UMY~2h7A0hxE.UuRBdGHf4BPi61javHXWLdA.Uko.hF8pKXj1cbrN_oQjnRBhg"
+    # will change per account
+    PF_OIDC_CLIENT_AUTHN_METHOD: client_secret_basic
+    PF_OIDC_AUTHORIZATION_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/authorize"
+    PF_OIDC_TOKEN_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/token"
+    PF_OIDC_USER_INFO_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/userinfo"
+    PF_OIDC_END_SESSION_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/signoff"
+    PF_OIDC_ISSUER: https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as
+    # PF_OIDC_ACR_VALUES:
+    PF_OIDC_SCOPES: openid email profile
+    PF_OIDC_USERNAME_ATTRIBUTE_NAME: name
+    PF_OIDC_ROLE_ATTRIBUTE_NAME: pf_admin_roles
+    PF_OIDC_ROLE_ADMIN: fullAdmin
+    PF_OIDC_ROLE_CRYPTOMANAGER: fullAdmin
+    PF_OIDC_ROLE_USERADMIN: fullAdmin
+    PF_OIDC_ROLE_EXPRESSIONADMIN: fullAdmin
+    PF_OIDC_ROLE_AUDITOR: fullAdmin
   clustering:
     autoscaling:
       enabled: false
