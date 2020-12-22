@@ -18,7 +18,7 @@ case "${REF}" in
 esac
 
 VALUES_FILE=${VALUES_FILE:=helm/values.yaml}
-CHART_VERSION="0.3.7"
+CHART_VERSION="0.3.8"
 CURRENT_SHA=$(git log -n 1 --pretty=format:%h)
 
 getGlobalVars() {
