@@ -39,7 +39,6 @@ global:
     # PA_ADMIN_PRIVATE_PORT_ACME: "8080"
     # PA_ADMIN_PRIVATE_PORT_HTTPS: "9000"
     # PA_ADMIN_PUBLIC_PORT_HTTPS: "443"
-    PA_ENGINE_PRIVATE_PORT_HTTPS: "3000"
     # PA_ENGINE_PUBLIC_PORT_HTTPS: "443"
     # PA_ENGINE_PRIVATE_HOSTNAME: ${RELEASE}-pingaccess
     # PA_ENGINE_PUBLIC_HOSTNAME: ${RELEASE}-pingaccess-admin.ping-devops.com
@@ -87,6 +86,9 @@ pingfederate-admin:
     SERVER_PROFILE_PARENT: BASE
     SERVER_PROFILE_PATH: profiles/pingfederate_admin
     SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd
+    # data.json.subst specific vars. 
+    PA_ENGINE_PRIVATE_PORT_HTTPS: "3000"
+    PD_DELEGATOR_HTTPS_PUBLIC_PORT: "443"
     # will change per branch
     PF_OIDC_CLIENT_ID: "c475b46d-d48f-4de1-9846-53ca0072f82a"
     PF_OIDC_CLIENT_SECRET: "D~UMY~2h7A0hxE.UuRBdGHf4BPi61javHXWLdA.Uko.hF8pKXj1cbrN_oQjnRBhg"
@@ -106,7 +108,6 @@ pingfederate-admin:
     PF_OIDC_ROLE_USERADMIN: fullAdmin
     PF_OIDC_ROLE_EXPRESSIONADMIN: fullAdmin
     PF_OIDC_ROLE_AUDITOR: fullAdmin
-
 #############################################################
 # pingfederate-engine values
 #############################################################
