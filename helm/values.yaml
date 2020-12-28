@@ -33,39 +33,10 @@ global:
   license:
     secret:
       devOps: devops-secret
-# REMOVE ALL THIS ONCE VARIABLES ARE DEFINED BY DEVOPS TEAM
   envs:
     PING_IDENTITY_ACCEPT_EULA: "YES"
-    # PA_ADMIN_PRIVATE_PORT_ACME: "8080"
-    # PA_ADMIN_PRIVATE_PORT_HTTPS: "9000"
-    # PA_ADMIN_PUBLIC_PORT_HTTPS: "443"
-    # PA_ENGINE_PUBLIC_PORT_HTTPS: "443"
-    # PA_ENGINE_PRIVATE_HOSTNAME: ${RELEASE}-pingaccess
-    # PA_ENGINE_PUBLIC_HOSTNAME: ${RELEASE}-pingaccess-admin.ping-devops.com
-    # PD_DELEGATOR_HTTPS_PRIVATE_PORT: "6443"
+    # need this because it's part of config, but not
     PD_DELEGATOR_HTTPS_PUBLIC_PORT: "443"
-    # PD_DELEGATOR_PRIVATE_HOSTNAME: ${RELEASE}-pingdelegator
-    # PD_DELEGATOR_PUBLIC_HOSTNAME: ${RELEASE}-pingdelegator.ping-devops.com
-    # PD_ENGINE_PRIVATE_PORT_HTTPS: "443"
-    # PD_ENGINE_PUBLIC_PORT_HTTPS: "443"
-    # PD_ENGINE_PRIVATE_PORT_LDAP: "389"
-    # PD_ENGINE_PRIVATE_PORT_LDAPS: "636"
-    # PD_ENGINE_PRIVATE_HOSTNAME: ${RELEASE}-pingdirectory
-    # PD_ENGINE_PUBLIC_HOSTNAME: ${RELEASE}-pingdirectory.ping-devops.com
-    # PDG_ENGINE_PRIVATE_PORT_HTTPS: "443"
-    # PDG_ENGINE_PUBLIC_PORT_HTTPS: "443"
-    # PDG_ENGINE_PRIVATE_HOSTNAME: ${RELEASE}-pingdatagovernance
-    # PDG_ENGINE_PUBLIC_HOSTNAME: ${RELEASE}-pingdatagovernance.ping-devops.com
-    # PDS_ENGINE_PRIVATE_PORT_HTTPS: "443"
-    # PDS_ENGINE_PRIVATE_HOSTNAME: ${RELEASE}-pingdatasync
-    # PF_ADMIN_PRIVATE_PORT_HTTPS: "9999"
-    # PF_ADMIN_PUBLIC_PORT_HTTPS: "443"
-    # PF_ADMIN_PRIVATE_HOSTNAME: ${RELEASE}-pingfederate-admin
-    # PF_ADMIN_PUBLIC_HOSTNAME: ${RELEASE}-pingfederate-admin.ping-devops.com
-    # PF_ENGINE_PRIVATE_PORT_HTTPS: "9031"
-    # PF_ENGINE_PUBLIC_PORT_HTTPS: "443"
-    # PF_ENGINE_PRIVATE_HOSTNAME: ${RELEASE}-pingfederate-engine
-    # PF_ENGINE_PUBLIC_HOSTNAME: ${RELEASE}-pingfederate-engine.ping-devops.com
 #############################################################
 # pingfederate-admin values
 #############################################################
@@ -81,6 +52,8 @@ pingfederate-admin:
     tag: 10.1.3-edge
     pullPolicy: Always
   envs:
+    PF_CONSOLE_AUTHENTICATION: OIDC
+    PF_ADMIN_API_AUTHENTICATION: NATIVE
     SERVER_PROFILE_BASE_PATH: profiles/pingfederate
     SERVER_PROFILE_BASE_URL: https://github.com/pingdevopsprogram/reference-cicd
     SERVER_PROFILE_PARENT: BASE
@@ -115,6 +88,21 @@ pingfederate-admin:
       containerPort: 443
       ingressPort: 443
       dataService: true
+  probes:
+    liveness:
+      command: /opt/liveness.sh
+      initialDelaySeconds: 90
+      periodSeconds: 10
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 2
+    readiness:
+      command: /opt/liveness.sh
+      initialDelaySeconds: 30
+      periodSeconds: 5
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 4
 
 #############################################################
 # pingfederate-engine values
@@ -127,6 +115,8 @@ pingfederate-engine:
     tag: 10.1.3-edge
     pullPolicy: Always
   envs:
+    PF_CONSOLE_AUTHENTICATION: OIDC
+    PF_ADMIN_API_AUTHENTICATION: NATIVE
     SERVER_PROFILE_PATH: profiles/pingfederate
     SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd
     PF_LOG_LEVEL: DEBUG
@@ -153,6 +143,21 @@ pingfederate-engine:
   clustering:
     autoscaling:
       enabled: false
+  probes:
+    liveness:
+      command: /opt/liveness.sh
+      initialDelaySeconds: 90
+      periodSeconds: 10
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 2
+    readiness:
+      command: /opt/liveness.sh
+      initialDelaySeconds: 30
+      periodSeconds: 5
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 4
 
 #############################################################
 # pingdirectory values
