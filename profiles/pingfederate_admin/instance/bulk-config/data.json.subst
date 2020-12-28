@@ -418,23 +418,6 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{
-                "password": "${PING_IDENTITY_PASSWORD}",
-                "roles": [
-                    "CRYPTO_ADMINISTRATOR",
-                    "USER_ADMINISTRATOR",
-                    "EXPRESSION_ADMINISTRATOR",
-                    "ADMINISTRATOR"
-                ],
-                "auditor": false,
-                "description": "Initial administrator user.",
-                "active": true,
-                "username": "Administrator"
-            }],
-            "resourceType": "/administrativeAccounts"
-        },
-        {
-            "operationType": "SAVE",
             "items": [{"crlSettings": {
                 "nextRetryMinsWhenNextUpdateInPast": 60,
                 "verifyCrlSignature": true,
