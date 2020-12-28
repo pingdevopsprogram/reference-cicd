@@ -130,6 +130,7 @@ pingfederate-engine:
     SERVER_PROFILE_PATH: profiles/pingfederate
     SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd
     PF_LOG_LEVEL: DEBUG
+    PF_ADMIN_PORT: "443"
     # will change per branch
     PF_OIDC_CLIENT_ID: "c475b46d-d48f-4de1-9846-53ca0072f82a"
     PF_OIDC_CLIENT_SECRET: "D~UMY~2h7A0hxE.UuRBdGHf4BPi61javHXWLdA.Uko.hF8pKXj1cbrN_oQjnRBhg"
@@ -140,7 +141,7 @@ pingfederate-engine:
     PF_OIDC_USER_INFO_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/userinfo"
     PF_OIDC_END_SESSION_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/signoff"
     PF_OIDC_ISSUER: https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as
-    # PF_OIDC_ACR_VALUES:
+    PF_OIDC_ACR_VALUES: ""
     PF_OIDC_SCOPES: openid email profile
     PF_OIDC_USERNAME_ATTRIBUTE_NAME: name
     PF_OIDC_ROLE_ATTRIBUTE_NAME: pf-admin-roles
