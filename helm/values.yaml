@@ -49,7 +49,7 @@ pingfederate-admin:
   image:
     repository: pingidentity
     name: pingfederate
-    tag: 10.1.3-edge
+    tag: 10.2.0-edge
     pullPolicy: Always
   envs:
     PF_CONSOLE_AUTHENTICATION: OIDC
@@ -112,7 +112,7 @@ pingfederate-engine:
   image:
     repository: pingidentity
     name: pingfederate
-    tag: 10.1.3-edge
+    tag: 10.2.0-edge
     pullPolicy: Always
   envs:
     PF_CONSOLE_AUTHENTICATION: OIDC
