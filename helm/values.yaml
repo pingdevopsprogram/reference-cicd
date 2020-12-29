@@ -79,9 +79,9 @@ pingfederate-admin:
     PF_OIDC_USERNAME_ATTRIBUTE_NAME: name
     PF_OIDC_ROLE_ATTRIBUTE_NAME: pf_admin_roles
     PF_OIDC_ROLE_ADMIN: fullAdmin
-    PF_OIDC_ROLE_CRYPTOMANAGER: cryptoManager
-    PF_OIDC_ROLE_USERADMIN: userAdmin
-    PF_OIDC_ROLE_EXPRESSIONADMIN: expressionAdmin
+    PF_OIDC_ROLE_CRYPTOMANAGER: fullAdmin
+    PF_OIDC_ROLE_USERADMIN: fullAdmin
+    PF_OIDC_ROLE_EXPRESSIONADMIN: fullAdmin
     PF_OIDC_ROLE_AUDITOR: roleAuditor
   services:
     https:
@@ -137,9 +137,9 @@ pingfederate-engine:
     PF_OIDC_USERNAME_ATTRIBUTE_NAME: name
     PF_OIDC_ROLE_ATTRIBUTE_NAME: pf_admin_roles
     PF_OIDC_ROLE_ADMIN: fullAdmin
-    PF_OIDC_ROLE_CRYPTOMANAGER: cryptoManager
-    PF_OIDC_ROLE_USERADMIN: userAdmin
-    PF_OIDC_ROLE_EXPRESSIONADMIN: expressionAdmin
+    PF_OIDC_ROLE_CRYPTOMANAGER: fullAdmin
+    PF_OIDC_ROLE_USERADMIN: fullAdmin
+    PF_OIDC_ROLE_EXPRESSIONADMIN: fullAdmin
     PF_OIDC_ROLE_AUDITOR: roleAuditor
   clustering:
     autoscaling:
