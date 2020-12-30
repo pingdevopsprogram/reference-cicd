@@ -36,7 +36,7 @@ global:
   envs:
     PING_IDENTITY_ACCEPT_EULA: "YES"
     # need this because it's part of config, but not
-    PD_DELEGATOR_HTTPS_PUBLIC_PORT: "443"
+    # PD_DELEGATOR_HTTPS_PUBLIC_PORT: "443"
 #############################################################
 # pingfederate-admin values
 #############################################################
@@ -49,8 +49,15 @@ pingfederate-admin:
   image:
     repository: pingidentity
     name: pingfederate
-    tag: 10.1.3-edge
+    tag: 10.2.0-edge
     pullPolicy: Always
+  # vault:
+  #   enabled: true
+  #   hashicorp:
+  #     secretPrefix: secret/samirgandhi@pingidentity.com/ping-cloud-devops-eks-samirgandhi/
+  #     secrets:
+  #     - name: devops-secret.env
+  #       secret: devops-secret.env
   envs:
     PF_CONSOLE_AUTHENTICATION: OIDC
     PF_ADMIN_API_AUTHENTICATION: NATIVE
@@ -60,6 +67,7 @@ pingfederate-admin:
     SERVER_PROFILE_PATH: profiles/pingfederate_admin
     SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd
     PF_ADMIN_PORT: "443"
+    PF_LOG_LEVEL: "DEBUG"
     # data.json.subst specific vars. 
     PA_ENGINE_PRIVATE_PORT_HTTPS: "3000"
     PD_DELEGATOR_HTTPS_PUBLIC_PORT: "443"
@@ -76,12 +84,13 @@ pingfederate-admin:
     PF_OIDC_ACR_VALUES: ""
     PF_OIDC_SCOPES: openid email profile
     PF_OIDC_USERNAME_ATTRIBUTE_NAME: name
-    PF_OIDC_ROLE_ATTRIBUTE_NAME: pf-admin-roles
+    PF_OIDC_ROLE_ATTRIBUTE_NAME: pf_admin_roles
     PF_OIDC_ROLE_ADMIN: fullAdmin
     PF_OIDC_ROLE_CRYPTOMANAGER: fullAdmin
     PF_OIDC_ROLE_USERADMIN: fullAdmin
     PF_OIDC_ROLE_EXPRESSIONADMIN: fullAdmin
-    PF_OIDC_ROLE_AUDITOR: fullAdmin
+    # don't have auditor and admin
+    PF_OIDC_ROLE_AUDITOR: roleAuditor
   services:
     https:
       servicePort: 443
@@ -112,8 +121,15 @@ pingfederate-engine:
   image:
     repository: pingidentity
     name: pingfederate
-    tag: 10.1.3-edge
+    tag: 10.2.0-edge
     pullPolicy: Always
+  # vault:
+  #   enabled: true
+  #   hashicorp:
+  #     secretPrefix: secret/samirgandhi@pingidentity.com/ping-cloud-devops-eks-samirgandhi/
+  #     secrets:
+  #     - name: devops-secret.env
+  #       secret: devops-secret.env
   envs:
     PF_CONSOLE_AUTHENTICATION: OIDC
     PF_ADMIN_API_AUTHENTICATION: NATIVE
@@ -134,12 +150,12 @@ pingfederate-engine:
     PF_OIDC_ACR_VALUES: ""
     PF_OIDC_SCOPES: openid email profile
     PF_OIDC_USERNAME_ATTRIBUTE_NAME: name
-    PF_OIDC_ROLE_ATTRIBUTE_NAME: pf-admin-roles
+    PF_OIDC_ROLE_ATTRIBUTE_NAME: pf_admin_roles
     PF_OIDC_ROLE_ADMIN: fullAdmin
     PF_OIDC_ROLE_CRYPTOMANAGER: fullAdmin
     PF_OIDC_ROLE_USERADMIN: fullAdmin
     PF_OIDC_ROLE_EXPRESSIONADMIN: fullAdmin
-    PF_OIDC_ROLE_AUDITOR: fullAdmin
+    PF_OIDC_ROLE_AUDITOR: roleAuditor
   clustering:
     autoscaling:
       enabled: false
