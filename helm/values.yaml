@@ -36,7 +36,7 @@ global:
   envs:
     PING_IDENTITY_ACCEPT_EULA: "YES"
     # need this because it's part of config, but not
-    PD_DELEGATOR_HTTPS_PUBLIC_PORT: "443"
+    # PD_DELEGATOR_HTTPS_PUBLIC_PORT: "443"
 #############################################################
 # pingfederate-admin values
 #############################################################
@@ -51,6 +51,13 @@ pingfederate-admin:
     name: pingfederate
     tag: 10.2.0-edge
     pullPolicy: Always
+  # vault:
+  #   enabled: true
+  #   hashicorp:
+  #     secretPrefix: secret/samirgandhi@pingidentity.com/ping-cloud-devops-eks-samirgandhi/
+  #     secrets:
+  #     - name: devops-secret.env
+  #       secret: devops-secret.env
   envs:
     PF_CONSOLE_AUTHENTICATION: OIDC
     PF_ADMIN_API_AUTHENTICATION: NATIVE
@@ -82,6 +89,7 @@ pingfederate-admin:
     PF_OIDC_ROLE_CRYPTOMANAGER: fullAdmin
     PF_OIDC_ROLE_USERADMIN: fullAdmin
     PF_OIDC_ROLE_EXPRESSIONADMIN: fullAdmin
+    # don't have auditor and admin
     PF_OIDC_ROLE_AUDITOR: roleAuditor
   services:
     https:
@@ -115,6 +123,13 @@ pingfederate-engine:
     name: pingfederate
     tag: 10.2.0-edge
     pullPolicy: Always
+  # vault:
+  #   enabled: true
+  #   hashicorp:
+  #     secretPrefix: secret/samirgandhi@pingidentity.com/ping-cloud-devops-eks-samirgandhi/
+  #     secrets:
+  #     - name: devops-secret.env
+  #       secret: devops-secret.env
   envs:
     PF_CONSOLE_AUTHENTICATION: OIDC
     PF_ADMIN_API_AUTHENTICATION: NATIVE
