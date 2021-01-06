@@ -8,7 +8,7 @@ case "${REF}" in
     K8S_NAMESPACE=${K8S_NAMESPACE:=sg-qa} 
     ;;
   master ) 
-    RELEASE=${RELEASE:=qa}
+    RELEASE=${RELEASE:=prod}
     K8S_NAMESPACE=${K8S_NAMESPACE:=sg-prod} 
     ;;
   * )
