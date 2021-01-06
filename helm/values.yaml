@@ -84,7 +84,7 @@ pingfederate-admin:
     PA_ENGINE_PRIVATE_PORT_HTTPS: "3000"
     PD_DELEGATOR_HTTPS_PUBLIC_PORT: "443"
     # will change per branch (should be a variable? should come from vault?)
-    PF_OIDC_CLIENT_ID: "2ec75bc0-e404-4731-ae93-c9a26bbfceef "
+    PF_OIDC_CLIENT_ID: "2ec75bc0-e404-4731-ae93-c9a26bbfceef"
     PF_OIDC_CLIENT_SECRET: "1L.Nx708IEtHSG0krm5Qmca3H3GcMlz7xl0M8GMVf3KqNFcaaAsRw8z2kvzvuXYu"
     # will change per account
     PF_OIDC_CLIENT_AUTHN_METHOD: client_secret_basic
@@ -143,7 +143,7 @@ pingfederate-engine:
     PF_LOG_LEVEL: DEBUG
     PF_ADMIN_PORT: "443"
     # will change per branch
-    PF_OIDC_CLIENT_ID: "2ec75bc0-e404-4731-ae93-c9a26bbfceef "
+    PF_OIDC_CLIENT_ID: "2ec75bc0-e404-4731-ae93-c9a26bbfceef"
     PF_OIDC_CLIENT_SECRET: "1L.Nx708IEtHSG0krm5Qmca3H3GcMlz7xl0M8GMVf3KqNFcaaAsRw8z2kvzvuXYu"
     # will change per account
     PF_OIDC_CLIENT_AUTHN_METHOD: client_secret_basic
