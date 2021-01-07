@@ -33,10 +33,20 @@ global:
   license:
     secret:
       devOps: devops-secret
+  vault:
+    enabled: true
+    hashicorp:
+      role: ping-devops-gte-default
+      log-level: debug
+      secretPrefix: secret/samirgandhi@pingidentity.com/sg-dev/
+      secrets:
+      - name: devops-secret.env
+        secret: devops-secret.env
   envs:
     PING_IDENTITY_ACCEPT_EULA: "YES"
     # need this because it's part of config, but not
     # PD_DELEGATOR_HTTPS_PUBLIC_PORT: "443"
+    
 #############################################################
 # pingfederate-admin values
 #############################################################
@@ -54,7 +64,9 @@ pingfederate-admin:
   # vault:
   #   enabled: true
   #   hashicorp:
-  #     secretPrefix: secret/samirgandhi@pingidentity.com/ping-cloud-devops-eks-samirgandhi/
+  #     role: ping-devops-gte-default
+  #     log-level: debug
+  #     secretPrefix: secret/samirgandhi@pingidentity.com/sg-dev/
   #     secrets:
   #     - name: devops-secret.env
   #       secret: devops-secret.env
@@ -71,9 +83,9 @@ pingfederate-admin:
     # data.json.subst specific vars. 
     PA_ENGINE_PRIVATE_PORT_HTTPS: "3000"
     PD_DELEGATOR_HTTPS_PUBLIC_PORT: "443"
-    # will change per branch
-    PF_OIDC_CLIENT_ID: "c475b46d-d48f-4de1-9846-53ca0072f82a"
-    PF_OIDC_CLIENT_SECRET: "D~UMY~2h7A0hxE.UuRBdGHf4BPi61javHXWLdA.Uko.hF8pKXj1cbrN_oQjnRBhg"
+    # will change per branch (should be a variable? should come from vault?)
+    PF_OIDC_CLIENT_ID: "2ec75bc0-e404-4731-ae93-c9a26bbfceef"
+    PF_OIDC_CLIENT_SECRET: "1L.Nx708IEtHSG0krm5Qmca3H3GcMlz7xl0M8GMVf3KqNFcaaAsRw8z2kvzvuXYu"
     # will change per account
     PF_OIDC_CLIENT_AUTHN_METHOD: client_secret_basic
     PF_OIDC_AUTHORIZATION_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/authorize"
@@ -123,13 +135,6 @@ pingfederate-engine:
     name: pingfederate
     tag: 10.2.0-edge
     pullPolicy: Always
-  # vault:
-  #   enabled: true
-  #   hashicorp:
-  #     secretPrefix: secret/samirgandhi@pingidentity.com/ping-cloud-devops-eks-samirgandhi/
-  #     secrets:
-  #     - name: devops-secret.env
-  #       secret: devops-secret.env
   envs:
     PF_CONSOLE_AUTHENTICATION: OIDC
     PF_ADMIN_API_AUTHENTICATION: NATIVE
@@ -138,8 +143,8 @@ pingfederate-engine:
     PF_LOG_LEVEL: DEBUG
     PF_ADMIN_PORT: "443"
     # will change per branch
-    PF_OIDC_CLIENT_ID: "c475b46d-d48f-4de1-9846-53ca0072f82a"
-    PF_OIDC_CLIENT_SECRET: "D~UMY~2h7A0hxE.UuRBdGHf4BPi61javHXWLdA.Uko.hF8pKXj1cbrN_oQjnRBhg"
+    PF_OIDC_CLIENT_ID: "2ec75bc0-e404-4731-ae93-c9a26bbfceef"
+    PF_OIDC_CLIENT_SECRET: "1L.Nx708IEtHSG0krm5Qmca3H3GcMlz7xl0M8GMVf3KqNFcaaAsRw8z2kvzvuXYu"
     # will change per account
     PF_OIDC_CLIENT_AUTHN_METHOD: client_secret_basic
     PF_OIDC_AUTHORIZATION_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/authorize"

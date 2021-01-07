@@ -8,7 +8,7 @@ case "${REF}" in
     K8S_NAMESPACE=${K8S_NAMESPACE:=sg-qa} 
     ;;
   master ) 
-    RELEASE=${RELEASE:=qa}
+    RELEASE=${RELEASE:=prod}
     K8S_NAMESPACE=${K8S_NAMESPACE:=sg-prod} 
     ;;
   * )
@@ -18,7 +18,7 @@ case "${REF}" in
 esac
 
 VALUES_FILE=${VALUES_FILE:=helm/values.yaml}
-CHART_VERSION="0.3.8"
+CHART_VERSION="0.3.9"
 CURRENT_SHA=$(git log -n 1 --pretty=format:%h)
 
 getGlobalVars() {
