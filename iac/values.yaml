@@ -1,0 +1,212 @@
+############################################################
+# Ping Identity DevOps values.yaml
+############################################################
+# The yaml is seperated into 2 major sections:
+#  - global - Represents the base set of values that will
+#             be used for each product, if that product
+#             doesn't override the global values.
+#
+#  - image  - For every image/product, the values will
+#             be merged with the global settings, and
+#             take precedence.
+############################################################
+
+############################################################
+# Global values
+############################################################
+global:
+  addReleaseNameToResource: prepend
+  ingress:
+    enabled: true
+    addReleaseNameToHost: prepend
+    defaultDomain: ping-devops.com
+    defaultTlsSecret:
+    annotations:
+      # nginx example
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      kubernetes.io/ingress.class: "nginx-public"
+  image:
+    repository: pingidentity
+    name:
+    tag: 2011
+    pullPolicy: IfNotPresent
+  license:
+    secret:
+      devOps: devops-secret
+  vault:
+    enabled: true
+    hashicorp:
+      role: ping-devops-gte-default
+      log-level: debug
+      secretPrefix: secret/samirgandhi@pingidentity.com/sg-dev/
+      secrets:
+      - name: devops-secret.env
+        secret: devops-secret.env
+  envs:
+    PING_IDENTITY_ACCEPT_EULA: "YES"
+    # need this because it's part of config, but not
+    # PD_DELEGATOR_HTTPS_PUBLIC_PORT: "443"
+    
+#############################################################
+# pingfederate-admin values
+#############################################################
+pingfederate-admin:
+  enabled: true
+  # container:
+  #   waitFor:
+  #     pingdirectory:
+  #       service: ldaps
+  image:
+    repository: pingidentity
+    name: pingfederate
+    tag: 10.2.0-edge
+    pullPolicy: Always
+  vault:
+    enabled: true
+    hashicorp:
+      role: ping-devops-gte-default
+      log-level: debug
+      secretPrefix: secret/samirgandhi@pingidentity.com/sg-dev/
+      secrets:
+      - name: ${RELEASE}.env
+        secret: ${RELEASE}.env
+  envs:
+    PF_CONSOLE_AUTHENTICATION: OIDC
+    PF_ADMIN_API_AUTHENTICATION: NATIVE
+    SERVER_PROFILE_BASE_PATH: profiles/pingfederate
+    SERVER_PROFILE_BASE_URL: https://github.com/pingdevopsprogram/reference-cicd
+    SERVER_PROFILE_PARENT: BASE
+    SERVER_PROFILE_PATH: profiles/pingfederate_admin
+    SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd
+    PF_ADMIN_PORT: "443"
+    PF_LOG_LEVEL: "DEBUG"
+    # data.json.subst specific vars. 
+    PA_ENGINE_PRIVATE_PORT_HTTPS: "3000"
+    PD_DELEGATOR_HTTPS_PUBLIC_PORT: "443"
+    # will change per branch (should be a variable? should come from vault?)
+    # PF_OIDC_CLIENT_ID: ""
+    # PF_OIDC_CLIENT_SECRET: ""
+    # will change per account
+    PF_OIDC_CLIENT_AUTHN_METHOD: client_secret_basic
+    PF_OIDC_AUTHORIZATION_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/authorize"
+    PF_OIDC_TOKEN_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/token"
+    PF_OIDC_USER_INFO_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/userinfo"
+    PF_OIDC_END_SESSION_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/signoff"
+    PF_OIDC_ISSUER: https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as
+    PF_OIDC_ACR_VALUES: ""
+    PF_OIDC_SCOPES: openid email profile
+    PF_OIDC_USERNAME_ATTRIBUTE_NAME: name
+    PF_OIDC_ROLE_ATTRIBUTE_NAME: pf_admin_roles
+    PF_OIDC_ROLE_ADMIN: fullAdmin
+    PF_OIDC_ROLE_CRYPTOMANAGER: fullAdmin
+    PF_OIDC_ROLE_USERADMIN: fullAdmin
+    PF_OIDC_ROLE_EXPRESSIONADMIN: fullAdmin
+    # don't have auditor and admin
+    PF_OIDC_ROLE_AUDITOR: roleAuditor
+  services:
+    https:
+      servicePort: 443
+      containerPort: 443
+      ingressPort: 443
+      dataService: true
+  probes:
+    liveness:
+      command: /opt/liveness.sh
+      initialDelaySeconds: 90
+      periodSeconds: 10
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 2
+    readiness:
+      command: /opt/liveness.sh
+      initialDelaySeconds: 30
+      periodSeconds: 5
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 4
+
+#############################################################
+# pingfederate-engine values
+#############################################################
+pingfederate-engine:
+  enabled: true
+  image:
+    repository: pingidentity
+    name: pingfederate
+    tag: 10.2.0-edge
+    pullPolicy: Always
+  vault:
+    enabled: true
+    hashicorp:
+      role: ping-devops-gte-default
+      log-level: debug
+      secretPrefix: secret/samirgandhi@pingidentity.com/sg-dev/
+      secrets:
+      - name: ${RELEASE}.env
+        secret: ${RELEASE}.env
+  envs:
+    PF_CONSOLE_AUTHENTICATION: OIDC
+    PF_ADMIN_API_AUTHENTICATION: NATIVE
+    SERVER_PROFILE_PATH: profiles/pingfederate
+    SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd
+    PF_LOG_LEVEL: DEBUG
+    PF_ADMIN_PORT: "443"
+    # will change per branch
+    # PF_OIDC_CLIENT_ID: ""
+    # PF_OIDC_CLIENT_SECRET: ""
+    # will change per account
+    PF_OIDC_CLIENT_AUTHN_METHOD: client_secret_basic
+    PF_OIDC_AUTHORIZATION_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/authorize"
+    PF_OIDC_TOKEN_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/token"
+    PF_OIDC_USER_INFO_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/userinfo"
+    PF_OIDC_END_SESSION_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/signoff"
+    PF_OIDC_ISSUER: https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as
+    PF_OIDC_ACR_VALUES: ""
+    PF_OIDC_SCOPES: openid email profile
+    PF_OIDC_USERNAME_ATTRIBUTE_NAME: name
+    PF_OIDC_ROLE_ATTRIBUTE_NAME: pf_admin_roles
+    PF_OIDC_ROLE_ADMIN: fullAdmin
+    PF_OIDC_ROLE_CRYPTOMANAGER: fullAdmin
+    PF_OIDC_ROLE_USERADMIN: fullAdmin
+    PF_OIDC_ROLE_EXPRESSIONADMIN: fullAdmin
+    PF_OIDC_ROLE_AUDITOR: roleAuditor
+  clustering:
+    autoscaling:
+      enabled: false
+  probes:
+    liveness:
+      command: /opt/liveness.sh
+      initialDelaySeconds: 90
+      periodSeconds: 10
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 2
+    readiness:
+      command: /opt/liveness.sh
+      initialDelaySeconds: 30
+      periodSeconds: 5
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 4
+
+#############################################################
+# pingdirectory values
+#############################################################
+pingdirectory:
+  enabled: true
+  envs:
+    SERVER_PROFILE_PATH: profiles/pingdirectory
+    SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd 
+    MAKELDIF_USERS: "2000"
+  container:
+    replicaCount: 1
+
+#############################################################
+# pingdataconsole values
+#############################################################
+pingdataconsole:
+  enabled: true
+  envs:
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: baseline/pingdataconsole
+    SERVER_PROFILE_BRANCH: master

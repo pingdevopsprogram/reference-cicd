@@ -17,7 +17,7 @@ case "${REF}" in
     ;;
 esac
 
-VALUES_FILE=${VALUES_FILE:=helm/values.yaml}
+VALUES_FILE=${VALUES_FILE:=iac/values.yaml}
 CHART_VERSION="0.3.9"
 CURRENT_SHA=$(git log -n 1 --pretty=format:%h)
 
