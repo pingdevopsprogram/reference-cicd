@@ -22,12 +22,17 @@ _timeout="5m0s"
 test "${pingdirectorySha}" = "${CURRENT_SHA}" && _timeout="10m0s"
 test ! "$(helm history "${RELEASE}")" && _timeout="15m0s"
 
-# # REMOVE ALL THIS ONCE VARIABLES ARE DEFINED BY DEVOPS TEAM
+
 export RELEASE
 envsubst < "${VALUES_FILE}" > "${VALUES_FILE}.final"
 VALUES_FILE="${VALUES_FILE}.final"
 
 # cat $VALUES_FILE
+
+## DELETE ONCE VAULT IS WORKING
+## Getting Client ID+Secret for this app.
+getPfClientAppInfo
+
 
 # # install the new profiles, but don't move on until install is successfully deployed. 
 # # tied to chart version to avoid breaking changes.
@@ -36,6 +41,10 @@ helm upgrade --install \
   --set pingdirectory.envs.PD_PROFILE_SHA="${pingdirectorySha}" \
   --set pingfederate-admin.envs.PF_PROFILE_SHA="${pingfederateSha}" \
   --set pingfederate-admin.envs.PF_ADMIN_PROFILE_SHA="${pingfederate_adminSha}" \
+  --set pingfederate-admin.envs.PF_OIDC_CLIENT_ID="${pfEnvClientId}" \
+  --set pingfederate-admin.envs.PF_OIDC_CLIENT_SECRET="${pfEnvClientSecret}" \
+  --set pingfederate-engine.envs.PF_OIDC_CLIENT_ID="${pfEnvClientId}" \
+  --set pingfederate-engine.envs.PF_OIDC_CLIENT_SECRET="${pfEnvClientSecret}" \
   --set pingfederate-engine.envs.PF_PROFILE_SHA="${pingfederateSha}" \
   --set global.envs.SERVER_PROFILE_BRANCH="${REF}" \
   --set pingfederate-admin.envs.SERVER_PROFILE_BASE_BRANCH="${REF}" \

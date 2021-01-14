@@ -1,19 +1,38 @@
 #!/usr/bin/env sh
-set -x
-collectionId=08a31b94a3b9fd831861
-test -n "${1}" && collectionId=${1}
+
+## Usage: ./run_postman.sh iac_file.yaml
+## filename must be equal to job name
+# set -x
 set -a 
 # shellcheck source=./ci_tools.lib.sh
 . ./ci_tools/ci_tools.lib.sh
 set +a
 
-kubectl delete pod integration-tests --force --grace-period=0 --ignore-not-found -n "${K8S_NAMESPACE}"
+set -x
 
-getGlobalVars > postman_vars
-postmanVars=$(while read line; do echo "--env-var $line "; done < postman_vars)
+createGlobalVarsPostman
 
-set -x 
-kubectl run integration-tests \
--i --rm --restart=Never \
---image=postman/newman \
--- run https://www.getpostman.com/collections/${collectionId} --insecure --ignore-redirects ${postmanVars}
+iacFile="${1}"
+test ! -f "${iacFile}" && echo "${iacFile} - file not found" && exit 1
+jobName=$(basename "$iacFile")
+jobName=${jobName%.yaml}
+envsubst < "${iacFile}" > "${iacFile}.final"
+iacFileFinal="${iacFile}.final"
+
+kubectl delete -f "${iacFileFinal}" --ignore-not-found --force --grace-period=0 -n "${K8S_NAMESPACE}"
+
+kubectl apply -f "${iacFileFinal}" -n "${K8S_NAMESPACE}"
+
+while true ; do
+  status="$(kubectl get job ${jobName} -o jsonpath='{.status.conditions[0].type}' --ignore-not-found -n ${K8S_NAMESPACE})"
+  if test "${status}" = "Complete" -o "${status}" = "Failed" ; then
+    break
+  fi
+  sleep 1
+done
+
+kubectl logs "job/${jobName}"
+
+echo "Job Status: ${status}"
+kubectl delete -f "${iacFileFinal}" --ignore-not-found -n "${K8S_NAMESPACE}"
+test "${status}" = "Complete" && exit 0

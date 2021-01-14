@@ -73,18 +73,20 @@ jobs:
         helm ls
         echo "ended install"
       # eval sha of profile dirs and deploy chart
+    - name: Create MyPing Env
+      if: "contains( github.event , 'create')"
+      run: ci_tools/run_postman.sh iac/createmyping.yaml
     - name: Deploy Changes
       run: |
         export REF=$(echo $GITHUB_REF | sed -e "s#refs/heads/##g")
         sh ci_tools/helm_deploy.sh
     - name: Integration Test
-      run: sh ci_tools/run_postman.sh 08a31b94a3b9fd831861
+      run: ci_tools/run_postman.sh iac/integrationtest.yaml
     - name: Environment Info
-      run: |
-        echo "Your environment is ready!"
-        set -a
-        source ci_tools/ci_tools.lib.sh
-        kubectl get ing -l app.kubernetes.io/instance=${RELEASE} -o=custom-columns="NAME:.metadata.name,HOST:.spec.rules[*].host"
+      run: echo "Your environment is ready, check Slack!"
+        # set -a
+        # source ci_tools/ci_tools.lib.sh
+        # kubectl get ing -l app.kubernetes.io/instance=${RELEASE} -o=custom-columns="NAME:.metadata.name,HOST:.spec.rules[*].host"
 
     - name: pull-request-action
       uses: vsoch/pull-request-action@1.0.12
