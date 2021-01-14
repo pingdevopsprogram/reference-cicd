@@ -8,7 +8,7 @@ set -a
 . ./ci_tools/ci_tools.lib.sh
 set +a
 
-set -x
+# set -x
 
 createGlobalVarsPostman
 
@@ -23,12 +23,16 @@ kubectl delete -f "${iacFileFinal}" --ignore-not-found --force --grace-period=0 
 
 kubectl apply -f "${iacFileFinal}" -n "${K8S_NAMESPACE}"
 
+timeout=30
+echo "waiting ${timeout}s for ${jobName} to complete "
 while true ; do
   status="$(kubectl get job ${jobName} -o jsonpath='{.status.conditions[0].type}' --ignore-not-found -n ${K8S_NAMESPACE})"
   if test "${status}" = "Complete" -o "${status}" = "Failed" ; then
     break
   fi
   sleep 1
+  timeout=$((timeout-1))
+  test $timeout -le 1 && echo "JOB TIMED OUT" && break
 done
 
 kubectl logs "job/${jobName}"
