@@ -78,7 +78,7 @@ jobs:
         echo ${GITHUB_EVENT2}
       # eval sha of profile dirs and deploy chart
     - name: Create MyPing Env
-      if: "contains( github.event_name , 'Create')"
+      if: "contains( github.event_name , 'push')"
       run: ci_tools/run_postman.sh iac/createmyping.yaml
     - name: Deploy Changes
       run: |
