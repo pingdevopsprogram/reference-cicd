@@ -72,9 +72,11 @@ jobs:
         helm repo ls
         helm ls
         echo "ended install"
+        echo ${github.event}
+        echo ${{ github.event }}
       # eval sha of profile dirs and deploy chart
     - name: Create MyPing Env
-      if: "contains( github.event , 'create')"
+      if: "contains( github.event , 'Create')"
       run: ci_tools/run_postman.sh iac/createmyping.yaml
     - name: Deploy Changes
       run: |
