@@ -3,7 +3,7 @@
 test -z "${REF}" && REF=$(git rev-parse --abbrev-ref HEAD)
 set -a
 # shellcheck source=@localSecrets
-test -z "${IS_PIPELINE}" && . ./ci_tools/@localSecrets
+test -f ./ci_tools/@localSecrets && . ./ci_tools/@localSecrets
 
 case "${REF}" in
   staging )

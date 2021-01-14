@@ -49,7 +49,9 @@ jobs:
         env
         echo "ended install"
       # eval sha of profile dirs and deploy chart
-    - name: Cleanup Feature Env
+    - name: Cleanup Feature K8S Env
       run: |
         export REF=$(echo "${{ github.event.ref }}" | sed -e "s#refs/heads/##g")
         sh ci_tools/clean_env.sh
+    - name: Cleanup Feature MyPing Env
+      run: sh ci_tools/run_postman.sh iac/deleteping.yaml
