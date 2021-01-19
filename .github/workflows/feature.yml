@@ -85,7 +85,7 @@ jobs:
         P1_ADMIN_ENV_ROLE_ID: ${{ secrets.P1_ADMIN_ENV_ROLE_ID}}
         PF_ADMIN_WORKER_ID: ${{ secrets.PF_ADMIN_WORKER_ID}}
         PF_ADMIN_WORKER_SECRET: ${{ secrets.PF_ADMIN_WORKER_SECRET}}
-        SLACK_WEBHOOK_ID: ${{ SLACK_WEBHOOK_ID }}
+        SLACK_WEBHOOK_ID: ${{ secrets.SLACK_WEBHOOK_ID }}
       # eval sha of profile dirs and deploy chart
     - name: Deploy Changes
       run: |
