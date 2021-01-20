@@ -32,6 +32,11 @@ on:
       - main
       - master
   create:
+    branches-ignore:
+      - qa
+      - main
+      - master
+
 
 name: Deploy Feature Env
 
