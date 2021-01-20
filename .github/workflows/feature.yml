@@ -27,11 +27,11 @@ on:
   # Trigger the workflow on push or pull request,
   # but only for the main branch
   create:
-  push:
-    branches-ignore:
-      - qa
-      - main
-      - master
+  # push:
+  #   branches-ignore:
+  #     - qa
+  #     - main
+  #     - master
 
 name: Deploy Feature Env
 
