@@ -32,12 +32,14 @@ on:
       - main
       - master
 
+
 name: Deploy Feature Env
 
 jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    if: "!contains(github.event.commits[0].message, '[skip ci]')"
 
     steps:
     - name: Checkout
@@ -72,19 +74,39 @@ jobs:
         helm repo ls
         helm ls
         echo "ended install"
+        echo ${{ github.event_name }}
+
+
+      # if new branch, postman collection to create myping env
+    - name: Create MyPing Env
+      # if: "contains( github.event_name , 'create')"
+      # if will be handled in postman. tricky to manage from github actions. 
+      run: ci_tools/run_postman.sh iac/createmyping.yaml
+      env:
+        ## These environment variables will be obfuscated in workflow logs.
+        ## must use standard shell format
+        P1_ADMIN_ENV_ID: ${{ secrets.P1_ADMIN_ENV_ID}}
+        P1_ADMIN_ORG_ID: ${{ secrets.P1_ADMIN_ORG_ID}}
+        P1_ADMIN_ENV_ROLE_ID: ${{ secrets.P1_ADMIN_ENV_ROLE_ID}}
+        PF_ADMIN_WORKER_ID: ${{ secrets.PF_ADMIN_WORKER_ID}}
+        PF_ADMIN_WORKER_SECRET: ${{ secrets.PF_ADMIN_WORKER_SECRET}}
+        SLACK_WEBHOOK_ID: ${{ secrets.SLACK_WEBHOOK_ID }}
       # eval sha of profile dirs and deploy chart
     - name: Deploy Changes
+      env:
+        P1_ADMIN_ENV_ID: ${{ secrets.P1_ADMIN_ENV_ID}}
+        PF_ADMIN_WORKER_ID: ${{ secrets.PF_ADMIN_WORKER_ID}}
+        PF_ADMIN_WORKER_SECRET: ${{ secrets.PF_ADMIN_WORKER_SECRET}}
       run: |
         export REF=$(echo $GITHUB_REF | sed -e "s#refs/heads/##g")
         sh ci_tools/helm_deploy.sh
     - name: Integration Test
-      run: sh ci_tools/run_postman.sh 08a31b94a3b9fd831861
+      run: ci_tools/run_postman.sh iac/integrationtest.yaml
     - name: Environment Info
-      run: |
-        echo "Your environment is ready!"
-        set -a
-        source ci_tools/ci_tools.lib.sh
-        kubectl get ing -l app.kubernetes.io/instance=${RELEASE} -o=custom-columns="NAME:.metadata.name,HOST:.spec.rules[*].host"
+      run: echo "Your environment is ready, check Slack!"
+        # set -a
+        # source ci_tools/ci_tools.lib.sh
+        # kubectl get ing -l app.kubernetes.io/instance=${RELEASE} -o=custom-columns="NAME:.metadata.name,HOST:.spec.rules[*].host"
 
     - name: pull-request-action
       uses: vsoch/pull-request-action@1.0.12

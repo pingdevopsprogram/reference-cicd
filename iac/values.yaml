@@ -38,7 +38,7 @@ global:
     hashicorp:
       role: ping-devops-gte-default
       log-level: debug
-      secretPrefix: secret/samirgandhi@pingidentity.com/sg-dev/
+      secretPrefix: secret/samirgandhi@pingidentity.com/${K8S_NAMESPACE}/
       secrets:
       - name: devops-secret.env
         secret: devops-secret.env
@@ -61,15 +61,6 @@ pingfederate-admin:
     name: pingfederate
     tag: 10.2.0-edge
     pullPolicy: Always
-  # vault:
-  #   enabled: true
-  #   hashicorp:
-  #     role: ping-devops-gte-default
-  #     log-level: debug
-  #     secretPrefix: secret/samirgandhi@pingidentity.com/sg-dev/
-  #     secrets:
-  #     - name: devops-secret.env
-  #       secret: devops-secret.env
   envs:
     PF_CONSOLE_AUTHENTICATION: OIDC
     PF_ADMIN_API_AUTHENTICATION: NATIVE
@@ -84,15 +75,15 @@ pingfederate-admin:
     PA_ENGINE_PRIVATE_PORT_HTTPS: "3000"
     PD_DELEGATOR_HTTPS_PUBLIC_PORT: "443"
     # will change per branch (should be a variable? should come from vault?)
-    PF_OIDC_CLIENT_ID: "2ec75bc0-e404-4731-ae93-c9a26bbfceef"
-    PF_OIDC_CLIENT_SECRET: "1L.Nx708IEtHSG0krm5Qmca3H3GcMlz7xl0M8GMVf3KqNFcaaAsRw8z2kvzvuXYu"
+    # PF_OIDC_CLIENT_ID: ""
+    # PF_OIDC_CLIENT_SECRET: ""
     # will change per account
     PF_OIDC_CLIENT_AUTHN_METHOD: client_secret_basic
-    PF_OIDC_AUTHORIZATION_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/authorize"
-    PF_OIDC_TOKEN_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/token"
-    PF_OIDC_USER_INFO_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/userinfo"
-    PF_OIDC_END_SESSION_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/signoff"
-    PF_OIDC_ISSUER: https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as
+    PF_OIDC_AUTHORIZATION_ENDPOINT: "https://auth.pingone.com/${P1_ADMIN_ENV_ID}/as/authorize"
+    PF_OIDC_TOKEN_ENDPOINT: "https://auth.pingone.com/${P1_ADMIN_ENV_ID}/as/token"
+    PF_OIDC_USER_INFO_ENDPOINT: "https://auth.pingone.com/${P1_ADMIN_ENV_ID}/as/userinfo"
+    PF_OIDC_END_SESSION_ENDPOINT: "https://auth.pingone.com/${P1_ADMIN_ENV_ID}/as/signoff"
+    PF_OIDC_ISSUER: https://auth.pingone.com/${P1_ADMIN_ENV_ID}/as
     PF_OIDC_ACR_VALUES: ""
     PF_OIDC_SCOPES: openid email profile
     PF_OIDC_USERNAME_ATTRIBUTE_NAME: name
@@ -143,15 +134,15 @@ pingfederate-engine:
     PF_LOG_LEVEL: DEBUG
     PF_ADMIN_PORT: "443"
     # will change per branch
-    PF_OIDC_CLIENT_ID: "2ec75bc0-e404-4731-ae93-c9a26bbfceef"
-    PF_OIDC_CLIENT_SECRET: "1L.Nx708IEtHSG0krm5Qmca3H3GcMlz7xl0M8GMVf3KqNFcaaAsRw8z2kvzvuXYu"
+    # PF_OIDC_CLIENT_ID: ""
+    # PF_OIDC_CLIENT_SECRET: ""
     # will change per account
     PF_OIDC_CLIENT_AUTHN_METHOD: client_secret_basic
-    PF_OIDC_AUTHORIZATION_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/authorize"
-    PF_OIDC_TOKEN_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/token"
-    PF_OIDC_USER_INFO_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/userinfo"
-    PF_OIDC_END_SESSION_ENDPOINT: "https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as/signoff"
-    PF_OIDC_ISSUER: https://auth.pingone.com/975eb21b-c72c-40a0-82ce-1a7fe44a5d6e/as
+    PF_OIDC_AUTHORIZATION_ENDPOINT: "https://auth.pingone.com/${P1_ADMIN_ENV_ID}/as/authorize"
+    PF_OIDC_TOKEN_ENDPOINT: "https://auth.pingone.com/${P1_ADMIN_ENV_ID}/as/token"
+    PF_OIDC_USER_INFO_ENDPOINT: "https://auth.pingone.com/${P1_ADMIN_ENV_ID}/as/userinfo"
+    PF_OIDC_END_SESSION_ENDPOINT: "https://auth.pingone.com/${P1_ADMIN_ENV_ID}/as/signoff"
+    PF_OIDC_ISSUER: https://auth.pingone.com/${P1_ADMIN_ENV_ID}/as
     PF_OIDC_ACR_VALUES: ""
     PF_OIDC_SCOPES: openid email profile
     PF_OIDC_USERNAME_ATTRIBUTE_NAME: name

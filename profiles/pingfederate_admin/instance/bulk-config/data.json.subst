@@ -239,7 +239,7 @@
             "operationType": "SAVE",
             "items": [{
                 "accepted": true,
-                "licenseAgreementUrl": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/license-agreement"
+                "licenseAgreementUrl": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/license-agreement"
             }],
             "resourceType": "/license/agreement"
         },
@@ -264,19 +264,19 @@
             "operationType": "SAVE",
             "items": [{
                 "activeRuntimeServerCerts": [{
-                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/keyPairs/sslServer/sslservercert",
+                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/keyPairs/sslServer/sslservercert",
                     "id": "sslservercert"
                 }],
                 "activeAdminConsoleCerts": [{
-                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/keyPairs/sslServer/sslservercert",
+                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/keyPairs/sslServer/sslservercert",
                     "id": "sslservercert"
                 }],
                 "adminConsoleCertRef": {
-                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/keyPairs/sslServer/sslservercert",
+                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/keyPairs/sslServer/sslservercert",
                     "id": "sslservercert"
                 },
                 "runtimeServerCertRef": {
-                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/keyPairs/sslServer/sslservercert",
+                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/keyPairs/sslServer/sslservercert",
                     "id": "sslservercert"
                 }
             }],
@@ -360,7 +360,7 @@
                     "saml2EntityId": "docker",
                     "saml1xIssuerId": "localhost:default:entityId",
                     "wsfedRealm": "",
-                    "baseUrl": "https://${PF_ENGINE_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}",
+                    "baseUrl": "https://${PF_ENGINE_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}",
                     "saml1xSourceId": ""
                 },
                 "contactInfo": {},
@@ -413,13 +413,7 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{
-                "dataStoreRef": {
-                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/dataStores",
-                    "id": ""
-                },
-                "synchronizationFrequency": 60
-            }],
+            "items": [{"synchronizationFrequency": 60}],
             "resourceType": "/serverSettings/outboundProvisioning"
         },
         {
@@ -427,10 +421,10 @@
             "items": [{
                 "password": "${PING_IDENTITY_PASSWORD}",
                 "roles": [
-                    "EXPRESSION_ADMINISTRATOR",
-                    "ADMINISTRATOR",
                     "CRYPTO_ADMINISTRATOR",
-                    "USER_ADMINISTRATOR"
+                    "USER_ADMINISTRATOR",
+                    "EXPRESSION_ADMINISTRATOR",
+                    "ADMINISTRATOR"
                 ],
                 "auditor": false,
                 "description": "Initial administrator user.",
@@ -572,7 +566,7 @@
                     "name": "pingdirectory",
                     "id": "pingdirectory",
                     "pluginDescriptorRef": {
-                        "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/passwordCredentialValidators/descriptors/org.sourceid.saml20.domain.LDAPUsernamePasswordCredentialValidator",
+                        "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/passwordCredentialValidators/descriptors/org.sourceid.saml20.domain.LDAPUsernamePasswordCredentialValidator",
                         "id": "org.sourceid.saml20.domain.LDAPUsernamePasswordCredentialValidator"
                     },
                     "attributeContract": {
@@ -639,7 +633,7 @@
                     "name": "simple",
                     "id": "simple",
                     "pluginDescriptorRef": {
-                        "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/passwordCredentialValidators/descriptors/org.sourceid.saml20.domain.SimpleUsernamePasswordCredentialValidator",
+                        "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/passwordCredentialValidators/descriptors/org.sourceid.saml20.domain.SimpleUsernamePasswordCredentialValidator",
                         "id": "org.sourceid.saml20.domain.SimpleUsernamePasswordCredentialValidator"
                     },
                     "attributeContract": {"coreAttributes": [{"name": "username"}]}
@@ -658,7 +652,7 @@
                 },
                 "registrationEnabled": true,
                 "apcId": {
-                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/authenticationPolicyContracts/Zxp6N6W5PH9onACT",
+                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/authenticationPolicyContracts/Zxp6N6W5PH9onACT",
                     "id": "Zxp6N6W5PH9onACT"
                 },
                 "name": "pingdirectory",
@@ -748,7 +742,7 @@
                     "createPattern": "uid=${mail}",
                     "objectClass": "inetOrgPerson",
                     "dataStoreRef": {
-                        "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/dataStores/LDAP-D803C87FAB2ADFB4B0A947B64BA6F0C6093A5CA3",
+                        "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/dataStores/LDAP-D803C87FAB2ADFB4B0A947B64BA6F0C6093A5CA3",
                         "id": "LDAP-D803C87FAB2ADFB4B0A947B64BA6F0C6093A5CA3"
                     },
                     "type": "LDAP",
@@ -934,7 +928,7 @@
                 "name": "JSON Web Tokens",
                 "id": "jwt",
                 "pluginDescriptorRef": {
-                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/oauth/accessTokenManagers/descriptors/com.pingidentity.pf.access.token.management.plugins.JwtBearerAccessTokenManagementPlugin",
+                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/oauth/accessTokenManagers/descriptors/com.pingidentity.pf.access.token.management.plugins.JwtBearerAccessTokenManagementPlugin",
                     "id": "com.pingidentity.pf.access.token.management.plugins.JwtBearerAccessTokenManagementPlugin"
                 },
                 "accessControlSettings": {
@@ -955,7 +949,7 @@
         {
             "operationType": "SAVE",
             "items": [{"defaultAccessTokenManagerRef": {
-                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/oauth/accessTokenManagers/jwt",
+                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/oauth/accessTokenManagers/jwt",
                 "id": "jwt"
             }}],
             "resourceType": "/oauth/accessTokenManagers/settings"
@@ -1214,7 +1208,7 @@
                 "name": "HTMLFormPD",
                 "id": "HTMLFormPD",
                 "pluginDescriptorRef": {
-                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/idp/adapters/descriptors/com.pingidentity.adapters.htmlform.idp.HtmlFormIdpAuthnAdapter",
+                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/idp/adapters/descriptors/com.pingidentity.adapters.htmlform.idp.HtmlFormIdpAuthnAdapter",
                     "id": "com.pingidentity.adapters.htmlform.idp.HtmlFormIdpAuthnAdapter"
                 },
                 "attributeContract": {
@@ -1271,7 +1265,7 @@
                 "name": "UsernameTokenProcessor",
                 "id": "UsernameTokenProcessor",
                 "pluginDescriptorRef": {
-                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/idp/tokenProcessors/descriptors/com.pingidentity.pf.tokenprocessors.username.UsernameTokenProcessor",
+                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/idp/tokenProcessors/descriptors/com.pingidentity.pf.tokenprocessors.username.UsernameTokenProcessor",
                     "id": "com.pingidentity.pf.tokenprocessors.username.UsernameTokenProcessor"
                 },
                 "attributeContract": {
@@ -1301,7 +1295,7 @@
         {
             "operationType": "SAVE",
             "items": [{
-                "baseUrl": "https://${PF_ENGINE_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}",
+                "baseUrl": "https://${PF_ENGINE_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}",
                 "contactInfo": {},
                 "virtualEntityIds": [],
                 "credentials": {"certs": [{
@@ -1353,7 +1347,7 @@
                         "attributeSources": [],
                         "issuanceCriteria": {"conditionalCriteria": []},
                         "accessTokenManagerRef": {
-                            "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/oauth/accessTokenManagers/jwt",
+                            "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/oauth/accessTokenManagers/jwt",
                             "id": "jwt"
                         }
                     }]
@@ -1376,7 +1370,7 @@
                         "certs": [],
                         "signingSettings": {
                             "signingKeyPairRef": {
-                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/keyPairs/signing/devsigningcert",
+                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/keyPairs/signing/devsigningcert",
                                 "id": "devsigningcert"
                             },
                             "includeRawKeyInSignature": false,
@@ -1394,7 +1388,7 @@
                         "authenticationPolicyContractAssertionMappings": [{
                             "abortSsoTransactionAsFailSafe": false,
                             "authenticationPolicyContractRef": {
-                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/authenticationPolicyContracts/Zxp6N6W5PH9onACT",
+                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/authenticationPolicyContracts/Zxp6N6W5PH9onACT",
                                 "id": "Zxp6N6W5PH9onACT"
                             },
                             "restrictedVirtualEntityIds": [],
@@ -1440,7 +1434,7 @@
                     "connectionTargetType": "STANDARD"
                 },
                 {
-                    "baseUrl": "https://${PF_ENGINE_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}",
+                    "baseUrl": "https://${PF_ENGINE_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}",
                     "contactInfo": {},
                     "wsTrust": {
                         "generateKey": false,
@@ -1459,7 +1453,7 @@
                                 "value": "username"
                             }},
                             "idpTokenProcessorRef": {
-                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/idp/tokenProcessors/UsernameTokenProcessor",
+                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/idp/tokenProcessors/UsernameTokenProcessor",
                                 "id": "UsernameTokenProcessor"
                             },
                             "attributeSources": [],
@@ -1476,7 +1470,7 @@
                         "certs": [],
                         "signingSettings": {
                             "signingKeyPairRef": {
-                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/keyPairs/signing/devsigningcert",
+                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/keyPairs/signing/devsigningcert",
                                 "id": "devsigningcert"
                             },
                             "includeRawKeyInSignature": false,
@@ -1499,7 +1493,7 @@
                         "certs": [],
                         "signingSettings": {
                             "signingKeyPairRef": {
-                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/keyPairs/signing/devsigningcert",
+                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/keyPairs/signing/devsigningcert",
                                 "id": "devsigningcert"
                             },
                             "includeRawKeyInSignature": false,
@@ -1517,7 +1511,7 @@
                         "authenticationPolicyContractAssertionMappings": [{
                             "abortSsoTransactionAsFailSafe": false,
                             "authenticationPolicyContractRef": {
-                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/authenticationPolicyContracts/Zxp6N6W5PH9onACT",
+                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/authenticationPolicyContracts/Zxp6N6W5PH9onACT",
                                 "id": "Zxp6N6W5PH9onACT"
                             },
                             "restrictedVirtualEntityIds": [],
@@ -1569,7 +1563,7 @@
                         "certs": [],
                         "signingSettings": {
                             "signingKeyPairRef": {
-                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/keyPairs/signing/devsigningcert",
+                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/keyPairs/signing/devsigningcert",
                                 "id": "devsigningcert"
                             },
                             "includeRawKeyInSignature": false,
@@ -1587,7 +1581,7 @@
                         "authenticationPolicyContractAssertionMappings": [{
                             "abortSsoTransactionAsFailSafe": false,
                             "authenticationPolicyContractRef": {
-                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/authenticationPolicyContracts/Zxp6N6W5PH9onACT",
+                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/authenticationPolicyContracts/Zxp6N6W5PH9onACT",
                                 "id": "Zxp6N6W5PH9onACT"
                             },
                             "restrictedVirtualEntityIds": [],
@@ -1639,7 +1633,79 @@
                         "certs": [],
                         "signingSettings": {
                             "signingKeyPairRef": {
-                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/keyPairs/signing/devsigningcert",
+                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/keyPairs/signing/devsigningcert",
+                                "id": "devsigningcert"
+                            },
+                            "includeRawKeyInSignature": false,
+                            "includeCertInSignature": false,
+                            "algorithm": "SHA256withRSA"
+                        }
+                    },
+                    "name": "https://pingidentity.com",
+                    "active": true,
+                    "spBrowserSso": {
+                        "requireSignedAuthnRequests": false,
+                        "authenticationPolicyContractAssertionMappings": [{
+                            "abortSsoTransactionAsFailSafe": false,
+                            "authenticationPolicyContractRef": {
+                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/authenticationPolicyContracts/Zxp6N6W5PH9onACT",
+                                "id": "Zxp6N6W5PH9onACT"
+                            },
+                            "restrictedVirtualEntityIds": [],
+                            "attributeContractFulfillment": {"SAML_SUBJECT": {
+                                "source": {"type": "AUTHENTICATION_POLICY_CONTRACT"},
+                                "value": "subject"
+                            }},
+                            "restrictVirtualEntityIds": false,
+                            "attributeSources": [],
+                            "issuanceCriteria": {"conditionalCriteria": []}
+                        }],
+                        "alwaysSignArtifactResponse": false,
+                        "encryptionPolicy": {
+                            "encryptSloSubjectNameId": false,
+                            "encryptAssertion": false,
+                            "encryptedAttributes": [],
+                            "sloSubjectNameIDEncrypted": false
+                        },
+                        "ssoServiceEndpoints": [{
+                            "isDefault": true,
+                            "binding": "POST",
+                            "index": 0,
+                            "url": "https://pingidentity.com"
+                        }],
+                        "attributeContract": {
+                            "coreAttributes": [{
+                                "nameFormat": "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified",
+                                "name": "SAML_SUBJECT"
+                            }],
+                            "extendedAttributes": []
+                        },
+                        "protocol": "SAML20",
+                        "spSamlIdentityMapping": "STANDARD",
+                        "signAssertions": false,
+                        "enabledProfiles": ["IDP_INITIATED_SSO"],
+                        "signResponseAsRequired": true,
+                        "adapterMappings": [],
+                        "assertionLifetime": {
+                            "minutesAfter": 5,
+                            "minutesBefore": 5
+                        }
+                    },
+                    "entityId": "https://pingidentity.com",
+                    "loggingMode": "STANDARD",
+                    "id": "YFo9ntSCOWc6YlH21-LMcERqWEf",
+                    "type": "SP",
+                    "connectionTargetType": "STANDARD",
+                    "licenseConnectionGroup": ""
+                },
+                {
+                    "contactInfo": {},
+                    "virtualEntityIds": [],
+                    "credentials": {
+                        "certs": [],
+                        "signingSettings": {
+                            "signingKeyPairRef": {
+                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/keyPairs/signing/devsigningcert",
                                 "id": "devsigningcert"
                             },
                             "includeRawKeyInSignature": false,
@@ -1657,7 +1723,7 @@
                         "authenticationPolicyContractAssertionMappings": [{
                             "abortSsoTransactionAsFailSafe": false,
                             "authenticationPolicyContractRef": {
-                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/authenticationPolicyContracts/Zxp6N6W5PH9onACT",
+                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/authenticationPolicyContracts/Zxp6N6W5PH9onACT",
                                 "id": "Zxp6N6W5PH9onACT"
                             },
                             "restrictedVirtualEntityIds": [],
@@ -1757,7 +1823,7 @@
                 "rollRefreshTokenValues": false,
                 "allowedOrigins": [
                     "https://localhost",
-                    "https://${PF_ENGINE_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}"
+                    "https://${PF_ENGINE_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}"
                 ],
                 "allowUnidentifiedClientExtensionGrants": false,
                 "devicePollingInterval": 5,
@@ -1827,7 +1893,7 @@
             "operationType": "SAVE",
             "items": [{
                 "authenticationPolicyContractRef": {
-                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/authenticationPolicyContracts/Zxp6N6W5PH9onACT",
+                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/authenticationPolicyContracts/Zxp6N6W5PH9onACT",
                     "id": "Zxp6N6W5PH9onACT"
                 },
                 "attributeContractFulfillment": {
@@ -1850,7 +1916,7 @@
             "operationType": "SAVE",
             "items": [{
                 "passwordValidatorRef": {
-                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/passwordCredentialValidators/pingdirectory",
+                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/passwordCredentialValidators/pingdirectory",
                     "id": "pingdirectory"
                 },
                 "attributeContractFulfillment": {"USER_KEY": {
@@ -2016,7 +2082,7 @@
                         ]
                     },
                     "accessTokenManagerRef": {
-                        "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/oauth/accessTokenManagers/jwt",
+                        "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/oauth/accessTokenManagers/jwt",
                         "id": "jwt"
                     }
                 },
@@ -2042,7 +2108,7 @@
                         "extendedAttributes": []
                     },
                     "accessTokenManagerRef": {
-                        "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/oauth/accessTokenManagers/jwt",
+                        "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/oauth/accessTokenManagers/jwt",
                         "id": "jwt"
                     }
                 },
@@ -2068,7 +2134,7 @@
                         "extendedAttributes": []
                     },
                     "accessTokenManagerRef": {
-                        "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/oauth/accessTokenManagers/jwt",
+                        "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/oauth/accessTokenManagers/jwt",
                         "id": "jwt"
                     }
                 }
@@ -2079,7 +2145,7 @@
             "operationType": "SAVE",
             "items": [{
                 "defaultPolicyRef": {
-                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/oauth/openIdConnect/policies/OAuthPlayground",
+                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/oauth/openIdConnect/policies/OAuthPlayground",
                     "id": "OAuthPlayground"
                 },
                 "sessionSettings": {
@@ -2111,7 +2177,7 @@
                 {
                     "context": {
                         "contextRef": {
-                            "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/authenticationPolicyContracts/Zxp6N6W5PH9onACT",
+                            "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/authenticationPolicyContracts/Zxp6N6W5PH9onACT",
                             "id": "Zxp6N6W5PH9onACT"
                         },
                         "type": "AUTHENTICATION_POLICY_CONTRACT"
@@ -2130,14 +2196,14 @@
                     "attributeSources": [],
                     "issuanceCriteria": {"conditionalCriteria": []},
                     "accessTokenManagerRef": {
-                        "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/oauth/accessTokenManagers/jwt",
+                        "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/oauth/accessTokenManagers/jwt",
                         "id": "jwt"
                     }
                 },
                 {
                     "context": {
                         "contextRef": {
-                            "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/passwordCredentialValidators/pingdirectory",
+                            "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/passwordCredentialValidators/pingdirectory",
                             "id": "pingdirectory"
                         },
                         "type": "PCV"
@@ -2156,7 +2222,7 @@
                     "attributeSources": [],
                     "issuanceCriteria": {"conditionalCriteria": []},
                     "accessTokenManagerRef": {
-                        "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/oauth/accessTokenManagers/jwt",
+                        "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/oauth/accessTokenManagers/jwt",
                         "id": "jwt"
                     }
                 }
@@ -2187,7 +2253,7 @@
                             }},
                             {"action": {
                                 "localIdentityRef": {
-                                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/localIdentity/identityProfiles/RBSQIwi5KWYN9ZGK",
+                                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/localIdentity/identityProfiles/RBSQIwi5KWYN9ZGK",
                                     "id": "RBSQIwi5KWYN9ZGK"
                                 },
                                 "inboundMapping": {
@@ -2229,7 +2295,7 @@
                             "authenticationSource": {
                                 "type": "IDP_ADAPTER",
                                 "sourceRef": {
-                                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_DELEGATOR_HTTPS_PUBLIC_PORT}/pf-admin-api/v1/idp/adapters/HTMLFormPD",
+                                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/idp/adapters/HTMLFormPD",
                                     "id": "HTMLFormPD"
                                 }
                             },
