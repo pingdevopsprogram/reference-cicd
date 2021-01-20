@@ -54,7 +54,9 @@ jobs:
         export REF=$(echo "${{ github.event.ref }}" | sed -e "s#refs/heads/##g")
         sh ci_tools/clean_env.sh
     - name: Cleanup Feature MyPing Env
-      run: sh ci_tools/run_postman.sh iac/deletemyping.yaml
+      run: |
+        export REF=$(echo "${{ github.event.ref }}" | sed -e "s#refs/heads/##g")
+        sh ci_tools/run_postman.sh iac/deletemyping.yaml
       env:
         ## These environment variables will be obfuscated in workflow logs.
         ## must use standard shell format
