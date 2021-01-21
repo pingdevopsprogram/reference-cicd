@@ -6,7 +6,7 @@ set -a
 test -f ./ci_tools/@localSecrets && . ./ci_tools/@localSecrets
 
 case "${REF}" in
-  staging )
+  qa )
     RELEASE=${RELEASE:=qa} 
     K8S_NAMESPACE=${K8S_NAMESPACE:=sg-qa}
     ;;
@@ -19,6 +19,8 @@ case "${REF}" in
     K8S_NAMESPACE=${K8S_NAMESPACE:=sg-dev} 
     ;;
 esac
+
+kubectl config set-context --current --namespace="${K8S_NAMESPACE}"
 
 VALUES_FILE=${VALUES_FILE:=iac/values.yaml}
 CHART_VERSION="0.3.9"
@@ -35,7 +37,7 @@ PING_IDENTITY_PASSWORD="2FederateM0re"
 
 createGlobalVarsPostman() {
   # kubectl get cm "${RELEASE}-global-env-vars" -o=jsonpath='{.data}' -n "${K8S_NAMESPACE}" | jq -r '. | to_entries | .[] | .key + "=" + .value + ""'
-  data=$(kubectl get cm "${RELEASE}-global-env-vars" -o=jsonpath='{.data}')
+  data=$(kubectl get cm "${RELEASE}-global-env-vars" -n "${K8S_NAMESPACE}" -o=jsonpath='{.data}')
   keys=$(echo "$data" | jq -r '. | to_entries | .[] | .key')
   varEntries=""
   for key in $keys ; do
