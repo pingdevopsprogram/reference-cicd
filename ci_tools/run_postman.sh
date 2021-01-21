@@ -35,7 +35,7 @@ while true ; do
   test $timeout -le 1 && echo "JOB TIMED OUT" && break
 done
 
-kubectl logs "job/${jobName}"
+kubectl logs "job/${jobName}" -n "${K8S_NAMESPACE}"
 
 echo "Job Status: ${status}"
 kubectl delete -f "${iacFileFinal}" --ignore-not-found -n "${K8S_NAMESPACE}"
