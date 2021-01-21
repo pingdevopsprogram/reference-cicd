@@ -2,13 +2,13 @@ on:
   # Trigger the workflow on push or pull request,
   # but only for the main branch
   push:
-    branches-ignore:
+    branches:
       - qa
-      - main
       - master
+      - main
 
 
-name: Deploy Feature Env
+name: Deploy Updates to Stable Envs
 
 jobs:
   deploy:
