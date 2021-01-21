@@ -23,7 +23,7 @@ kubectl delete -f "${iacFileFinal}" --ignore-not-found --force --grace-period=0 
 
 kubectl apply -f "${iacFileFinal}" -n "${K8S_NAMESPACE}"
 
-timeout=30
+timeout=90
 echo "waiting ${timeout}s for ${jobName} to complete "
 while true ; do
   status="$(kubectl get job ${jobName} -o jsonpath='{.status.conditions[0].type}' --ignore-not-found -n ${K8S_NAMESPACE})"
