@@ -8,7 +8,7 @@ set -a
 . ./ci_tools/ci_tools.lib.sh
 set +a
 
-set -x
+# set -x
 
 createGlobalVarsPostman
 
