@@ -6,7 +6,7 @@ set -a
 test -f ./ci_tools/@localSecrets && . ./ci_tools/@localSecrets
 
 case "${REF}" in
-  staging )
+  qa )
     RELEASE=${RELEASE:=qa} 
     K8S_NAMESPACE=${K8S_NAMESPACE:=sg-qa}
     ;;
