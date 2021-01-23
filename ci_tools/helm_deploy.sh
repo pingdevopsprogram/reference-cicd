@@ -18,7 +18,7 @@ for D in ./profiles/* ; do
 done
 
 #try to minimize extended crashloops
-_timeout="5m0s"
+_timeout="10m0s"
 test "${pingdirectorySha}" = "${CURRENT_SHA}" && _timeout="10m0s"
 test ! "$(helm history "${RELEASE}")" && _timeout="15m0s"
 
