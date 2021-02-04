@@ -101,7 +101,7 @@ global:
 # #############################################################
 # # pingfederate-engine values
 # #############################################################
-# pingfederate-engine:
+pingfederate-engine:
 #   enabled: true
 #   image:
 #     repository: pingidentity
@@ -111,8 +111,8 @@ global:
 #   clustering:
 #     autoscaling:
 #       enabled: false
-#   container:
-#     replicaCount: 1
+  container:
+    replicaCount: 1
 
 #############################################################
 # pingdirectory values
