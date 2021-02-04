@@ -154,7 +154,9 @@ pingfederate-engine:
     PF_OIDC_ROLE_AUDITOR: roleAuditor
   clustering:
     autoscaling:
-      enabled: false
+      enabled: true
+  container:
+    replicaCount: 3
   probes:
     liveness:
       command: /opt/liveness.sh

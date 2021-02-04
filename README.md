@@ -27,7 +27,7 @@ If using EKS, you also need to add AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY v
 
 Eventually you will have something like:
 
-![github-secrets](images/github-secrets.png)
+![github-secrets](img/github-secrets.png)
 
 ## Security Holes
 
