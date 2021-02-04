@@ -5,9 +5,9 @@ set -a
 # shellcheck source=@localSecrets
 test -f ./ci_tools/@localSecrets && . ./ci_tools/@localSecrets
 
-DEV_NAMESPACE=${K8S_NAMESPACE:=sg-dev}
-QA_NAMESPACE=${K8S_NAMESPACE:=sg-qa}
-PROD_NAMESPACE=${K8S_NAMESPACE:=sg-prod}
+DEV_NAMESPACE=${K8S_NAMESPACE:-sg-dev}
+QA_NAMESPACE=${K8S_NAMESPACE:-sg-qa}
+PROD_NAMESPACE=${K8S_NAMESPACE:-sg-prod}
 
 case "${REF}" in
   qa )
