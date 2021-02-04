@@ -183,7 +183,7 @@ pingdirectory:
     SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd 
     MAKELDIF_USERS: "2000"
   container:
-    replicaCount: 1
+    replicaCount: 3
 
 #############################################################
 # pingdataconsole values
