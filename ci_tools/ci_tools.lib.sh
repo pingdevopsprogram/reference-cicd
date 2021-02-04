@@ -5,22 +5,22 @@ set -a
 # shellcheck source=@localSecrets
 test -f ./ci_tools/@localSecrets && . ./ci_tools/@localSecrets
 
-devNamespace=${K8S_NAMESPACE:=sg-dev}
-qaNamespace=${K8S_NAMESPACE:=sg-qa}
-prodNamespace=${K8S_NAMESPACE:=sg-prod}
+DEV_NAMESPACE=${K8S_NAMESPACE:=sg-dev}
+QA_NAMESPACE=${K8S_NAMESPACE:=sg-qa}
+PROD_NAMESPACE=${K8S_NAMESPACE:=sg-prod}
 
 case "${REF}" in
   qa )
     RELEASE=${RELEASE:=qa} 
-    K8S_NAMESPACE="${devNamespace}"
+    K8S_NAMESPACE="${DEV_NAMESPACE}"
     ;;
   master ) 
     RELEASE=${RELEASE:=prod}
-    K8S_NAMESPACE="${qaNamespace}"
+    K8S_NAMESPACE="${QA_NAMESPACE}"
     ;;
   * )
     RELEASE="${REF}"
-    K8S_NAMESPACE="${prodNamespace}" 
+    K8S_NAMESPACE="${PROD_NAMESPACE}" 
     ;;
 esac
 

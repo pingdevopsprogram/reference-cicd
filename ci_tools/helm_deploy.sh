@@ -24,7 +24,7 @@ test ! "$(helm history "${RELEASE}")" && _timeout="15m0s"
 
 
 export RELEASE
-if test "${K8S_NAMESPACE}" = "sg-dev" ; then
+if test "${K8S_NAMESPACE}" = "${DEV_NAMESPACE}" ; then
   envsubst < "${VALUES_DEV_FILE}" > "${VALUES_DEV_FILE}.final"
   _valuesDevFile="-f ${VALUES_DEV_FILE}.final"
 fi
