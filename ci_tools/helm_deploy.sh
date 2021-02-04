@@ -24,8 +24,13 @@ test ! "$(helm history "${RELEASE}")" && _timeout="15m0s"
 
 
 export RELEASE
+if test "${K8S_NAMESPACE}" = "${DEV_NAMESPACE}" ; then
+  envsubst < "${VALUES_DEV_FILE}" > "${VALUES_DEV_FILE}.final"
+  _valuesDevFile="-f ${VALUES_DEV_FILE}.final"
+fi
+
 envsubst < "${VALUES_FILE}" > "${VALUES_FILE}.final"
-VALUES_FILE="${VALUES_FILE}.final"
+_valuesFile="${VALUES_FILE}.final"
 
 # cat $VALUES_FILE
 
@@ -48,7 +53,7 @@ helm upgrade --install \
   --set pingfederate-engine.envs.PF_PROFILE_SHA="${pingfederateSha}" \
   --set global.envs.SERVER_PROFILE_BRANCH="${REF}" \
   --set pingfederate-admin.envs.SERVER_PROFILE_BASE_BRANCH="${REF}" \
-  -f "${VALUES_FILE}" \
+  -f "${_valuesFile}" ${_valuesDevFile} \
   --namespace "${K8S_NAMESPACE}" --version "${CHART_VERSION}" \
   --atomic --timeout "${_timeout}"
 

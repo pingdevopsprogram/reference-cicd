@@ -5,24 +5,29 @@ set -a
 # shellcheck source=@localSecrets
 test -f ./ci_tools/@localSecrets && . ./ci_tools/@localSecrets
 
+DEV_NAMESPACE=${K8S_NAMESPACE:-sg-dev}
+QA_NAMESPACE=${K8S_NAMESPACE:-sg-qa}
+PROD_NAMESPACE=${K8S_NAMESPACE:-sg-prod}
+
 case "${REF}" in
   qa )
     RELEASE=${RELEASE:=qa} 
-    K8S_NAMESPACE=${K8S_NAMESPACE:=sg-qa}
+    K8S_NAMESPACE="${QA_NAMESPACE}"
     ;;
   master ) 
     RELEASE=${RELEASE:=prod}
-    K8S_NAMESPACE=${K8S_NAMESPACE:=sg-prod} 
+    K8S_NAMESPACE="${PROD_NAMESPACE}"
     ;;
   * )
     RELEASE="${REF}"
-    K8S_NAMESPACE=${K8S_NAMESPACE:=sg-dev} 
+    K8S_NAMESPACE="${DEV_NAMESPACE}" 
     ;;
 esac
 
 kubectl config set-context --current --namespace="${K8S_NAMESPACE}"
 
-VALUES_FILE=${VALUES_FILE:=iac/values.yaml}
+VALUES_FILE=${VALUES_FILE:=k8s/values.yaml}
+VALUES_DEV_FILE=${VALUES_DEV_FILE:=k8s/values.dev.yaml}
 CHART_VERSION="0.3.9"
 CURRENT_SHA=$(git log -n 1 --pretty=format:%h)
 
