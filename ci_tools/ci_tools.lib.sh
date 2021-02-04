@@ -12,15 +12,15 @@ PROD_NAMESPACE=${K8S_NAMESPACE:-sg-prod}
 case "${REF}" in
   qa )
     RELEASE=${RELEASE:=qa} 
-    K8S_NAMESPACE="${DEV_NAMESPACE}"
+    K8S_NAMESPACE="${QA_NAMESPACE}"
     ;;
   master ) 
     RELEASE=${RELEASE:=prod}
-    K8S_NAMESPACE="${QA_NAMESPACE}"
+    K8S_NAMESPACE="${PROD_NAMESPACE}"
     ;;
   * )
     RELEASE="${REF}"
-    K8S_NAMESPACE="${PROD_NAMESPACE}" 
+    K8S_NAMESPACE="${DEV_NAMESPACE}" 
     ;;
 esac
 
