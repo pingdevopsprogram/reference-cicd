@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-## Usage: ./run_postman.sh iac_file.yaml
+## Usage: ./run_postman.sh k8s_file.yaml
 ## filename must be equal to job name
 # set -x
 set -a 
@@ -12,16 +12,16 @@ set +a
 
 createGlobalVarsPostman
 
-iacFile="${1}"
-test ! -f "${iacFile}" && echo "${iacFile} - file not found" && exit 1
-jobName=$(basename "$iacFile")
+k8sFile="${1}"
+test ! -f "${k8sFile}" && echo "${k8sFile} - file not found" && exit 1
+jobName=$(basename "$k8sFile")
 jobName=${jobName%.yaml}
-envsubst < "${iacFile}" > "${iacFile}.final"
-iacFileFinal="${iacFile}.final"
+envsubst < "${k8sFile}" > "${k8sFile}.final"
+k8sFileFinal="${k8sFile}.final"
 
-kubectl delete -f "${iacFileFinal}" --ignore-not-found --force --grace-period=0 -n "${K8S_NAMESPACE}"
+kubectl delete -f "${k8sFileFinal}" --ignore-not-found --force --grace-period=0 -n "${K8S_NAMESPACE}"
 
-kubectl apply -f "${iacFileFinal}" -n "${K8S_NAMESPACE}"
+kubectl apply -f "${k8sFileFinal}" -n "${K8S_NAMESPACE}"
 
 timeout=30
 echo "waiting ${timeout}s for ${jobName} to complete "
@@ -38,5 +38,5 @@ done
 kubectl logs "job/${jobName}" -n "${K8S_NAMESPACE}"
 
 echo "Job Status: ${status}"
-kubectl delete -f "${iacFileFinal}" --ignore-not-found -n "${K8S_NAMESPACE}"
+kubectl delete -f "${k8sFileFinal}" --ignore-not-found -n "${K8S_NAMESPACE}"
 test "${status}" = "Complete" && exit 0
