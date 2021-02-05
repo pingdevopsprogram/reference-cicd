@@ -152,9 +152,9 @@ pingfederate-engine:
     PF_OIDC_ROLE_USERADMIN: fullAdmin
     PF_OIDC_ROLE_EXPRESSIONADMIN: fullAdmin
     PF_OIDC_ROLE_AUDITOR: roleAuditor
-  # clustering:
-  #   autoscaling:
-  #     enabled: false
+  clustering:
+    autoscaling:
+      enabled: false
   #     minReplicas: 3
   #     maxReplicas: 6
   #     targetCPUUtilizationPercentage: 75
