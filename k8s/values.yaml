@@ -38,10 +38,10 @@ global:
     hashicorp:
       role: ping-devops-gte-default
       log-level: debug
-      secretPrefix: secret/samirgandhi@pingidentity.com/${K8S_NAMESPACE}/
+      secretPrefix: secret/samirgandhi@pingidentity.com/
       secrets:
-      - name: devops-secret.env
-        secret: devops-secret.env
+      - name: ${K8S_NAMESPACE}/devops-secret.env
+        secret: ${K8S_NAMESPACE}/devops-secret.env
   envs:
     PING_IDENTITY_ACCEPT_EULA: "YES"
     # need this because it's part of config, but not
