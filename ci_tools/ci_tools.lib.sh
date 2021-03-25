@@ -5,9 +5,14 @@ set -a
 # shellcheck source=@localSecrets
 test -f ./ci_tools/@localSecrets && . ./ci_tools/@localSecrets
 
+CHART_VERSION="0.5.1"
 DEV_NAMESPACE=${K8S_NAMESPACE:-sg-dev}
 QA_NAMESPACE=${K8S_NAMESPACE:-sg-qa}
 PROD_NAMESPACE=${K8S_NAMESPACE:-sg-prod}
+VALUES_FILE=${VALUES_FILE:=k8s/values.yaml}
+VALUES_DEV_FILE=${VALUES_DEV_FILE:=k8s/values.dev.yaml}
+K8S_DIR=k8s
+CURRENT_SHA=$(git log -n 1 --pretty=format:%h)
 
 case "${REF}" in
   qa )
@@ -25,11 +30,6 @@ case "${REF}" in
 esac
 
 kubectl config set-context --current --namespace="${K8S_NAMESPACE}"
-
-VALUES_FILE=${VALUES_FILE:=k8s/values.yaml}
-VALUES_DEV_FILE=${VALUES_DEV_FILE:=k8s/values.dev.yaml}
-CHART_VERSION="0.3.9"
-CURRENT_SHA=$(git log -n 1 --pretty=format:%h)
 
 getGlobalVars() {
   kubectl get cm "${RELEASE}-global-env-vars" -o=jsonpath='{.data}' -n "${K8S_NAMESPACE}" | jq -r '. | to_entries | .[] | .key + "=" + .value + ""'

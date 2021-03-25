@@ -28,7 +28,7 @@ global:
   image:
     repository: pingidentity
     name:
-    tag: 2011
+    tag: 2102
     pullPolicy: IfNotPresent
   license:
     secret:
@@ -36,8 +36,16 @@ global:
   vault:
     enabled: true
     hashicorp:
-      role: ping-devops-gte-default
-      log-level: debug
+      serviceAccountName: vault-auth
+      annotations:
+        agent-inject: true
+        agent-init-first: true
+        agent-pre-populate-only: true
+        log-level: info
+        preserve-secret-case: true
+        role: ping-devops-gte-default
+        secret-volume-path: /run/secrets
+        # serviceAccountName: vault-auth
       secretPrefix: secret/samirgandhi@pingidentity.com/${K8S_NAMESPACE}/
       secrets:
       - name: devops-secret.env
@@ -59,8 +67,12 @@ pingfederate-admin:
   image:
     repository: pingidentity
     name: pingfederate
-    tag: 10.2.0-edge
+    # tag: 10.2.0-edge
     pullPolicy: Always
+  secretVolumes:
+    pf-master-key:
+      items:
+        pf.jwk: /opt/in/instance/server/default/data/pf.jwk
   envs:
     PF_CONSOLE_AUTHENTICATION: OIDC
     PF_ADMIN_API_AUTHENTICATION: NATIVE
@@ -126,6 +138,10 @@ pingfederate-engine:
     name: pingfederate
     tag: 10.2.0-edge
     pullPolicy: Always
+  secretVolumes:
+    pf-master-key:
+      items:
+        pf.jwk: /opt/in/instance/server/default/data/pf.jwk
   envs:
     PF_CONSOLE_AUTHENTICATION: OIDC
     PF_ADMIN_API_AUTHENTICATION: NATIVE
