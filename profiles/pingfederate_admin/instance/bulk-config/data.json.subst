@@ -421,9 +421,9 @@
             "items": [{
                 "password": "${PING_IDENTITY_PASSWORD}",
                 "roles": [
-                    "USER_ADMINISTRATOR",
                     "EXPRESSION_ADMINISTRATOR",
                     "ADMINISTRATOR",
+                    "USER_ADMINISTRATOR",
                     "CRYPTO_ADMINISTRATOR"
                 ],
                 "auditor": false,
@@ -1574,6 +1574,7 @@
                     "name": "https://devops.pingidentity.com/",
                     "active": true,
                     "spBrowserSso": {
+                        "protocol": "SAML20",
                         "requireSignedAuthnRequests": false,
                         "spSamlIdentityMapping": "STANDARD",
                         "signAssertions": false,
