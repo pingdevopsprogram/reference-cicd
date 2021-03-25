@@ -139,7 +139,7 @@ pingfederate-engine:
     tag: 10.2.0-edge
     pullPolicy: Always
   secretVolumes:
-    product-secrets:
+    pf-master-key:
       items:
         pf.jwk: /opt/in/instance/server/default/data/pf.jwk
   envs:
