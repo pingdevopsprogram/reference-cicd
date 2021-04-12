@@ -7,6 +7,10 @@ set -a
 # shellcheck source=./ci_tools.lib.sh
 . ./ci_tools/ci_tools.lib.sh
 
+if test "${1}" == "--dry-run" || test "${1}" == "-d" ; then
+  _dryRun="--dry-run"
+fi
+
 ## builds sha for each product based on the folder name in ./profiles/* (e.g. pingfederateSha)
   ## this determines what will be redeployed. 
 for D in ./profiles/* ; do 
@@ -56,7 +60,7 @@ helm upgrade --install \
   --set pingfederate-admin.envs.SERVER_PROFILE_BASE_BRANCH="${REF}" \
   -f "${_valuesFile}" ${_valuesDevFile} \
   --namespace "${K8S_NAMESPACE}" --version "${CHART_VERSION}" \
-  --atomic --timeout "${_timeout}"
+  --atomic --timeout "${_timeout}" "$_dryRun"
 
 test "${?}" -ne 0 && exit 1
 
