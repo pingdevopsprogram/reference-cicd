@@ -15,17 +15,17 @@
 # Global values
 ############################################################
 global:
-  envs:
-    PD_CONSOLE_PRIVATE_HOSTNAME: qa-pingdataconsole.sg-qa.svc.cluster.local
-    PD_CONSOLE_PRIVATE_PORT_HTTPS: "8443"
-    PD_CONSOLE_PUBLIC_HOSTNAME: qa-pingdataconsole.ping-devops.com
-    PD_CONSOLE_PUBLIC_PORT_HTTPS: "443"
-    PD_ENGINE_PRIVATE_HOSTNAME: qa-pingdirectory.sg-qa.svc.cluster.local
-    PD_ENGINE_PRIVATE_PORT_HTTPS: "443"
-    PD_ENGINE_PRIVATE_PORT_LDAP: "389"
-    PD_ENGINE_PRIVATE_PORT_LDAPS: "636"
-    PD_ENGINE_PUBLIC_HOSTNAME: qa-pingdirectory.ping-devops.com
-    PD_ENGINE_PUBLIC_PORT_HTTPS: "443"
+  # envs:
+  #   PD_CONSOLE_PRIVATE_HOSTNAME: qa-pingdataconsole.sg-qa.svc.cluster.local
+  #   PD_CONSOLE_PRIVATE_PORT_HTTPS: "8443"
+  #   PD_CONSOLE_PUBLIC_HOSTNAME: qa-pingdataconsole.ping-devops.com
+  #   PD_CONSOLE_PUBLIC_PORT_HTTPS: "443"
+  #   PD_ENGINE_PRIVATE_HOSTNAME: qa-pingdirectory.sg-qa.svc.cluster.local
+  #   PD_ENGINE_PRIVATE_PORT_HTTPS: "443"
+  #   PD_ENGINE_PRIVATE_PORT_LDAP: "389"
+  #   PD_ENGINE_PRIVATE_PORT_LDAPS: "636"
+  #   PD_ENGINE_PUBLIC_HOSTNAME: qa-pingdirectory.ping-devops.com
+  #   PD_ENGINE_PUBLIC_PORT_HTTPS: "443"
     # need this because it's part of config, but not
     # PD_DELEGATOR_HTTPS_PUBLIC_PORT: "443"
     
@@ -123,14 +123,14 @@ pingdirectory:
   #   SERVER_PROFILE_PATH: profiles/pingdirectory
   #   SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd 
   #   MAKELDIF_USERS: "2000"
-  # container:
-  #   replicaCount: 1
+  container:
+    replicaCount: 1
 
 #############################################################
 # pingdataconsole values
 #############################################################
-pingdataconsole:
-  enabled: false
+# pingdataconsole:
+#   enabled: false
   # envs:
   #   SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
   #   SERVER_PROFILE_PATH: baseline/pingdataconsole
