@@ -1,3 +1,4 @@
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/Technical-Enablement-PingIdentity/BXFinance-ServerProfiles/DeployEnv/master?label=prod)
 # Reference CI/CD Pipeline
 
 **WORK IN PROGRESS**
