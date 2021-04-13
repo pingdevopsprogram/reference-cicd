@@ -89,6 +89,6 @@ jobs:
       uses: vsoch/pull-request-action@1.0.12
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PULL_REQUEST_BRANCH: "qa"
+        PULL_REQUEST_BRANCH: "master"
         PASS_IF_EXISTS: "yes"
         PASS_ON_ERROR: "yes"
