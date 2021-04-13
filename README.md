@@ -16,11 +16,14 @@ This repository aims to provide a reference example of a development lifecycle w
 - PF key pair secrets in Vault
 - PF.jwk as bitnami sealed secret
 
-## Roadmap Features
+## Roadmap
 
 - Licenses as bitnami sealed secret
 - Docs on PF GitOps
 - PD SSO from myping
+- Health Dashboard 
+  - Downtime Monitoring
+- Continuous Traffic to prod
 
 ## Setup Github Actions. 
 
