@@ -1,5 +1,5 @@
 {
-    "metadata": {"pfVersion": "10.2.0.13"},
+    "metadata": {"pfVersion": "10.2.2.0"},
     "operations": [
         {
             "operationType": "SAVE",
@@ -413,7 +413,13 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{"synchronizationFrequency": 60}],
+            "items": [{
+                "dataStoreRef": {
+                    "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/dataStores",
+                    "id": ""
+                },
+                "synchronizationFrequency": 60
+            }],
             "resourceType": "/serverSettings/outboundProvisioning"
         },
         {
@@ -421,10 +427,10 @@
             "items": [{
                 "password": "${PING_IDENTITY_PASSWORD}",
                 "roles": [
+                    "CRYPTO_ADMINISTRATOR",
                     "EXPRESSION_ADMINISTRATOR",
                     "ADMINISTRATOR",
-                    "USER_ADMINISTRATOR",
-                    "CRYPTO_ADMINISTRATOR"
+                    "USER_ADMINISTRATOR"
                 ],
                 "auditor": false,
                 "description": "Initial administrator user.",
@@ -1363,76 +1369,6 @@
         {
             "operationType": "SAVE",
             "items": [
-                {
-                    "contactInfo": {},
-                    "virtualEntityIds": [],
-                    "credentials": {
-                        "certs": [],
-                        "signingSettings": {
-                            "signingKeyPairRef": {
-                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/keyPairs/signing/devsigningcert",
-                                "id": "devsigningcert"
-                            },
-                            "includeRawKeyInSignature": false,
-                            "includeCertInSignature": false,
-                            "algorithm": "SHA256withRSA"
-                        }
-                    },
-                    "name": "https://facile.pingidentity.cloud",
-                    "active": true,
-                    "spBrowserSso": {
-                        "protocol": "SAML20",
-                        "requireSignedAuthnRequests": false,
-                        "spSamlIdentityMapping": "STANDARD",
-                        "signAssertions": false,
-                        "authenticationPolicyContractAssertionMappings": [{
-                            "abortSsoTransactionAsFailSafe": false,
-                            "authenticationPolicyContractRef": {
-                                "location": "https://${PF_ADMIN_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}/pf-admin-api/v1/authenticationPolicyContracts/Zxp6N6W5PH9onACT",
-                                "id": "Zxp6N6W5PH9onACT"
-                            },
-                            "restrictedVirtualEntityIds": [],
-                            "attributeContractFulfillment": {"SAML_SUBJECT": {
-                                "source": {"type": "AUTHENTICATION_POLICY_CONTRACT"},
-                                "value": "subject"
-                            }},
-                            "restrictVirtualEntityIds": false,
-                            "attributeSources": [],
-                            "issuanceCriteria": {"conditionalCriteria": []}
-                        }],
-                        "encryptionPolicy": {
-                            "encryptSloSubjectNameId": false,
-                            "encryptAssertion": false,
-                            "encryptedAttributes": [],
-                            "sloSubjectNameIDEncrypted": false
-                        },
-                        "enabledProfiles": ["IDP_INITIATED_SSO"],
-                        "signResponseAsRequired": true,
-                        "ssoServiceEndpoints": [{
-                            "isDefault": true,
-                            "binding": "POST",
-                            "index": 0,
-                            "url": "https://facile.pingidentity.cloud"
-                        }],
-                        "adapterMappings": [],
-                        "assertionLifetime": {
-                            "minutesAfter": 5,
-                            "minutesBefore": 5
-                        },
-                        "attributeContract": {
-                            "coreAttributes": [{
-                                "nameFormat": "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified",
-                                "name": "SAML_SUBJECT"
-                            }],
-                            "extendedAttributes": []
-                        }
-                    },
-                    "entityId": "https://facile.pingidentity.cloud",
-                    "loggingMode": "STANDARD",
-                    "id": "EFdeXJqaA-B7kyGu95oAqI3EQ1Y",
-                    "type": "SP",
-                    "connectionTargetType": "STANDARD"
-                },
                 {
                     "baseUrl": "https://${PF_ENGINE_PUBLIC_HOSTNAME}:${PD_ENGINE_PRIVATE_PORT_HTTPS}",
                     "contactInfo": {},

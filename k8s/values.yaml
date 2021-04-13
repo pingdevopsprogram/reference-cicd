@@ -136,7 +136,7 @@ pingfederate-engine:
   image:
     repository: pingidentity
     name: pingfederate
-    tag: 10.2.0-edge
+    # tag: 10.2.0-edge
     pullPolicy: Always
   secretVolumes:
     pf-master-key:

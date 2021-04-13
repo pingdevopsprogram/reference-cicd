@@ -1,7 +1,10 @@
 #!/usr/bin/env sh
+set -x
 _initialDir="${PWD}"
 _scriptDir="${PWD}/ci_tools/pf_build_profile"
 cd "${_scriptDir}" || exit
+
+test "${1}" == "-B" && _backup=true
 
 prop() {
   grep "${1}" env.properties|cut -d'=' -f2
@@ -38,8 +41,8 @@ fi
 
 mv "${pVersion}/env_vars" "${pVersion}/tmp_env_vars"
 sed 's/=.*$/=/' "${pVersion}/tmp_env_vars" > "${pVersion}/env_vars"
+cp -f "${pVersion}/env_vars" "vars_diff"
 
 cd "${_initialDir}" || exit
 cp "${_scriptDir}/${pVersion}/data.json.subst" "profiles/pingfederate_admin/instance/bulk-config/data.json.subst"
-
-# rm -rf "${pVersion}"
+test ! $_backup && rm -rf "${_scriptDir}/${pVersion}/"
