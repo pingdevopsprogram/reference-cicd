@@ -33,10 +33,16 @@ global:
   license:
     secret:
       devOps: devops-secret
+
+  #   secrets:
+  #     {secret-name}:
+  #       {secret-key | to-json}:
+  #         path: /opt/in/some/location/secrets
+  #         file: devops-secret.env
   vault:
     enabled: true
     hashicorp:
-      serviceAccountName: vault-auth
+      # serviceAccountName: vault-auth
       annotations:
         agent-inject: true
         agent-init-first: true
@@ -45,11 +51,12 @@ global:
         preserve-secret-case: true
         role: ping-devops-gte-default
         secret-volume-path: /run/secrets
-        # serviceAccountName: vault-auth
+        serviceAccountName: vault-auth
       secretPrefix: secret/samirgandhi@pingidentity.com/${K8S_NAMESPACE}/
       secrets:
-      - name: devops-secret.env
-        secret: devops-secret.env
+        devops-secret.env:
+          to-json:
+            file: devops-secret.env
   envs:
     PING_IDENTITY_ACCEPT_EULA: "YES"
     # need this because it's part of config, but not
@@ -62,7 +69,7 @@ pingfederate-admin:
   vault:
     enabled: true
     hashicorp:
-      serviceAccountName: vault-auth
+      # serviceAccountName: vault-auth
       annotations:
         agent-inject: true
         agent-init-first: true
@@ -71,13 +78,15 @@ pingfederate-admin:
         preserve-secret-case: true
         role: ping-devops-gte-default
         secret-volume-path: /run/secrets
-        # serviceAccountName: vault-auth
+        serviceAccountName: vault-auth
       secretPrefix: secret/samirgandhi@pingidentity.com/${K8S_NAMESPACE}/
       secrets:
-      - name: devops-secret.env
-        secret: devops-secret.env
-      - name: pf-keys.env
-        secret: pf-keys.env
+        devops-secret.env:
+          to-json:
+            file: devops-secret.env
+        pf-keys.env:
+          to-json:
+            file: devops-secret.env
   enabled: true
   # container:
   #   waitFor:
@@ -232,4 +241,3 @@ pingdataconsole:
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     SERVER_PROFILE_PATH: baseline/pingdataconsole
     SERVER_PROFILE_BRANCH: master
-    
