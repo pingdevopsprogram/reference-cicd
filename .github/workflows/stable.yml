@@ -6,6 +6,7 @@ on:
       - qa
       - master
       - main
+      - prod
 
 
 name: Deploy Updates to Stable Envs
