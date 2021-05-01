@@ -1,8 +1,30 @@
-## Reference CI/CD Pipeline
+![GitHub Workflow Status (branch)](https://img.shields.io.github.com/pingdevopsprogram/reference-cicd/DeployEnv/prod?label=prod)
+# Reference CI/CD Pipeline
 
 **WORK IN PROGRESS**
 
 This repository aims to provide a reference example of a development lifecycle with PingIdentity Software Products. 
+
+## Current Features
+
+- PingFederate GitOps :
+  - Automatically builds new environments for feature-building
+  - [profile script](ci_tools/pf_build_profile/pf_profile.sh) to _pull templated config based on current environment_. built with:
+    - bulk-export tool
+    - variablize
+  - Diffs to show which env variables/secrets need to be added according to config.
+- Using pingidentity/ping-devops Helm chart 
+- PF key pair secrets in Vault
+- PF.jwk as bitnami sealed secret
+
+## Roadmap
+
+- Licenses as bitnami sealed secret
+- Docs on PF GitOps
+- PD SSO from myping
+- Health Dashboard 
+  - Downtime Monitoring
+- Continuous Traffic to prod
 
 ## Setup Github Actions. 
 
@@ -41,11 +63,7 @@ Eventually you will have something like:
 - build profile into the image
 - make sure github repo is private. 
 
-**Hole** - Secrets in profiles. 
+<!-- **Hole** - Secrets in profiles. 
 **mitigation**
 - Use vault for secrets
-- use k8s secrets for secrets.
-
-**Hole**
-**mitigation**
--  
+- use k8s secrets for secrets. -->

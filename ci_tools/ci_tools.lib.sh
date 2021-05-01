@@ -19,7 +19,7 @@ case "${REF}" in
     RELEASE=${RELEASE:=qa} 
     K8S_NAMESPACE="${QA_NAMESPACE}"
     ;;
-  master ) 
+  prod ) 
     RELEASE=${RELEASE:=prod}
     K8S_NAMESPACE="${PROD_NAMESPACE}"
     ;;
