@@ -5,10 +5,10 @@ on:
   # but only for the main branch
   push:
     branches-ignore:
-      - master
-      - main
-      - prod
       - qa
+      - prod
+      - main
+      - master
     paths:
       - 'ci_tools/**'
       - 'k8s/**'
