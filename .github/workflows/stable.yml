@@ -84,10 +84,10 @@ jobs:
         # kubectl get ing -l app.kubernetes.io/instance=${RELEASE} -o=custom-columns="NAME:.metadata.name,HOST:.spec.rules[*].host"
 
     - name: pull-request-action
-      if: "! contains(github.event.ref, 'master')"
+      if: "! contains(github.event.ref, 'prod')"
       uses: vsoch/pull-request-action@1.0.12
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PULL_REQUEST_BRANCH: "master"
+        PULL_REQUEST_BRANCH: "prod"
         PASS_IF_EXISTS: "yes"
         PASS_ON_ERROR: "yes"

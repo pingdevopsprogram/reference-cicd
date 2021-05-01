@@ -3,7 +3,7 @@ on:
   # but only for the main branch
   delete:
     branches-ignore:
-      - qa
+      - prod
       - main
       - master
 
