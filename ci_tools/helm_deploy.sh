@@ -64,4 +64,4 @@ helm upgrade --install \
 
 test "${?}" -ne 0 && exit 1
 
-helm history "${RELEASE}" --namespace "${K8S_NAMESPACE}"
+test -z "$_dryRun" && helm history "${RELEASE}" --namespace "${K8S_NAMESPACE}"
