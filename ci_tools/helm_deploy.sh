@@ -59,8 +59,9 @@ helm upgrade --install \
   --set global.envs.SERVER_PROFILE_BRANCH="${REF}" \
   --set pingfederate-admin.envs.SERVER_PROFILE_BASE_BRANCH="${REF}" \
   -f "${_valuesFile}" ${_valuesDevFile} \
-  --namespace "${K8S_NAMESPACE}" --version "${CHART_VERSION}" \
-  --atomic --timeout "${_timeout}" $_dryRun
+  --namespace "${K8S_NAMESPACE}" --version "${CHART_VERSION}" $_dryRun
+
+kubectl wait pods --all --for=condition=ready --timeout="${_timeout}" -n "${K8S_NAMESPACE}"
 
 test "${?}" -ne 0 && exit 1
 
