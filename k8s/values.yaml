@@ -246,10 +246,6 @@ pingfederate-engine:
 pingdirectory:
   enabled: true
   envs:
-    SERVER_PROFILE_METRICS_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
-    SERVER_PROFILE_METRICS_PATH: perf-testing/pingdirectory
-    SERVER_PROFILE_METRICS_BRANCH: counter-format
-    SERVER_PROFILE_PARENT: METRICS
     SERVER_PROFILE_PATH: profiles/pingdirectory
     SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd 
     MAKELDIF_USERS: "2000"
