@@ -99,5 +99,5 @@ sed 's/=.*$/=/' "${pVersion}/tmp_env_vars" > "${pVersion}/env_vars"
 cp -f "${pVersion}/env_vars" "vars_diff"
 
 cd "${_initialDir}" || exit
-cp -a "${_scriptDir}/${pVersion}/pd.profile" "profiles/pingdirectory/pd.profile"
+cp -a "${_scriptDir}/${pVersion}/pd.profile" "profiles/pingdirectory/."
 test ! $_backup && rm -rf "${_scriptDir}/${pVersion}/"
