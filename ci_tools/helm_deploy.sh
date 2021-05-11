@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 set -x
-# set -e
+set -e
 
 set -a
 # shellcheck source=./ci_tools.lib.sh
@@ -22,9 +22,9 @@ for D in ./profiles/* ; do
 done
 
 #try to minimize extended crashloops
-_timeout="10m0s"
-test "${pingdirectorySha}" = "${CURRENT_SHA}" && _timeout="10m0s"
-test ! "$(helm history "${RELEASE}")" && _timeout="15m0s"
+_timeout=600
+test "${pingdirectorySha}" = "${CURRENT_SHA}" && _timeout=600
+test ! "$(helm history "${RELEASE}")" && _timeout=900
 
 
 export RELEASE
