@@ -9,7 +9,7 @@ on:
       - prod
 
 
-name: Deploy Updates to Stable Envs
+name: DeployStable
 
 jobs:
   deploy:

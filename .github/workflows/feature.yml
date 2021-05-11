@@ -15,7 +15,7 @@ on:
       - 'profiles/**'
 
 
-name: Deploy Feature Env
+name: DeployFeature
 
 jobs:
   deploy:
