@@ -1,4 +1,5 @@
-![GitHub Workflow Status (branch)](https://img.shields.io.github.com/pingdevopsprogram/reference-cicd/DeployEnv/prod?label=prod)
+![GitHub Workflow Status (branch)](https://img.shields.io.github.com/pingdevopsprogram/reference-cicd/DeployStable/prod?label=prod)
+![GitHub Workflow Status (branch)](https://img.shields.io.github.com/pingdevopsprogram/reference-cicd/DeployFeature?label=latestFeature)
 # Reference CI/CD Pipeline
 
 **WORK IN PROGRESS**
