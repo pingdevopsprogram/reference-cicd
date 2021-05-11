@@ -61,7 +61,14 @@ helm upgrade --install \
   -f "${_valuesFile}" ${_valuesDevFile} \
   --namespace "${K8S_NAMESPACE}" --version "${CHART_VERSION}" $_dryRun
 
-kubectl wait pods --all --for=condition=ready --timeout="${_timeout}" -n "${K8S_NAMESPACE}"
+_timeoutElapsed=0
+while test ${_timeoutElapsed} -lt ${_timeout} ; do
+  sleep 6
+  if test $(kubectl get pods -o go-template='{{range $index, $element := .items}}{{range .status.containerStatuses}}{{if not .ready}}{{$element.metadata.name}}{{"\n"}}{{end}}{{end}}{{end}}' | wc -l ) = 0 ; then
+      break;
+  fi
+  _timeoutElapsed=$((_timeoutElapsed+6))
+done
 
 test "${?}" -ne 0 && exit 1
 
