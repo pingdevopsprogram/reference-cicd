@@ -17,7 +17,7 @@ for D in ./profiles/* ; do
   if [ -d "${D}" ]; then 
     _prodName=$(basename "${D}")
     dirr="${D}"
-    eval "${_prodName}Sha=$(git log -n 1 --pretty=format:%h -- "$dirr")"
+    eval "${_prodName}Sha=x$(git log -n 1 --pretty=format:%h -- "$dirr")"
   fi
 done
 
