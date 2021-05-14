@@ -69,3 +69,5 @@ Eventually you will have something like:
 **mitigation**
 - Use vault for secrets
 - use k8s secrets for secrets. -->
+
+
