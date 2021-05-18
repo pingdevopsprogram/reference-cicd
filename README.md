@@ -1,6 +1,7 @@
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/pingdevopsprogram/reference-cicd/DeployStable?label=prod)
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/pingdevopsprogram/reference-cicd/DeployFeature?label=latestFeature)
 
+
 # Reference CI/CD Pipeline
 
 **WORK IN PROGRESS**
@@ -69,5 +70,3 @@ Eventually you will have something like:
 **mitigation**
 - Use vault for secrets
 - use k8s secrets for secrets. -->
-
-
