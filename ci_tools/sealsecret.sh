@@ -45,7 +45,7 @@ while ! test -z ${1} ; do
       shift
       secretName="${1}";;
     -h|--help)
-      exit_usage "./sealsecret.sh -n cicd-dev -f @Pingdirectory.lic -s pingdirectory-license
+      exit_usage "./sealsecret.sh -n cicd-dev -f full/path/to/Pingdirectory.lic -s pingdirectory-license
                    ";;
     *)
       exit_usage "Unrecognized Option" ;;
