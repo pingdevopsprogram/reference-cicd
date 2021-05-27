@@ -86,7 +86,7 @@ pingfederate-admin:
             file: devops-secret.env
         pf-keys.env:
           to-json:
-            file: devops-secret.env
+            file: pf-keys.env
   enabled: true
   # container:
   #   waitFor:
