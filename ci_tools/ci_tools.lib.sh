@@ -5,7 +5,7 @@ set -a
 # shellcheck source=@localSecrets
 test -f ./ci_tools/@localSecrets && . ./ci_tools/@localSecrets
 
-CHART_VERSION="0.5.7"
+CHART_VERSION="0.6.2"
 DEV_NAMESPACE=${K8S_NAMESPACE:-cicd-dev}
 QA_NAMESPACE=${K8S_NAMESPACE:-cicd-qa}
 PROD_NAMESPACE=${K8S_NAMESPACE:-cicd-prod}
