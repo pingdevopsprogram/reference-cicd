@@ -5,6 +5,9 @@ set -a
 # shellcheck source=@localSecrets
 test -f ./ci_tools/@localSecrets && . ./ci_tools/@localSecrets
 
+## CI VARIABLES
+PROFILES_REPO_URL="https://github.com/pingdevopsprogram/reference-cicd.git"
+VAULT_AUTH_ROLE="ping-devops-gte-default"
 CHART_VERSION="0.6.2"
 DEV_NAMESPACE=${K8S_NAMESPACE:-cicd-dev}
 QA_NAMESPACE=${K8S_NAMESPACE:-cicd-qa}
