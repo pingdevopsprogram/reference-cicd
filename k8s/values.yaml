@@ -354,5 +354,6 @@ pingaccess-engine:
   envs:
     SERVER_PROFILE_URL: "${PROFILES_REPO_URL}"
     SERVER_PROFILE_PATH: profiles/pingaccess
+    VERBOSE: "true"
   container:
     replicaCount: 1
