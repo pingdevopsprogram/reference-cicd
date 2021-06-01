@@ -57,14 +57,14 @@ helm upgrade --install \
   --set pingfederate-engine.envs.PF_OIDC_CLIENT_SECRET="${pfEnvClientSecret}" \
   --set pingfederate-engine.envs.PF_PROFILE_SHA="${pingfederateSha}" \
   --set global.envs.SERVER_PROFILE_BRANCH="${REF}" \
-  --set pingfederate-admin.envs.SERVER_PROFILE_BASE_BRANCH="${REF}" \
+  --set global.envs.SERVER_PROFILE_BASE_BRANCH="${REF}" \
   -f "${_valuesFile}" ${_valuesDevFile} \
   --namespace "${K8S_NAMESPACE}" --version "${CHART_VERSION}" $_dryRun
 
 _timeoutElapsed=0
 while test ${_timeoutElapsed} -lt ${_timeout} ; do
   sleep 6
-  if test $(kubectl get pods -n "${K8S_NAMESPACE}" -o go-template='{{range $index, $element := .items}}{{range .status.containerStatuses}}{{if not .ready}}{{$element.metadata.name}}{{"\n"}}{{end}}{{end}}{{end}}' | wc -l ) = 0 ; then
+  if test $(kubectl get pods -l app.kubernetes.io/instance="${RELEASE}" -n "${K8S_NAMESPACE}" -o go-template='{{range $index, $element := .items}}{{range .status.containerStatuses}}{{if not .ready}}{{$element.metadata.name}}{{"\n"}}{{end}}{{end}}{{end}}' | wc -l ) = 0 ; then
       break;
   fi
   _timeoutElapsed=$((_timeoutElapsed+6))
