@@ -340,7 +340,7 @@ pingaccess-admin:
   envs:
     SERVER_PROFILE_BASE_URL: "${PROFILES_REPO_URL}"
     SERVER_PROFILE_BASE_PATH: profiles/pingaccess
-    SERVER_PROFILE_PARENT: ADMIN
+    SERVER_PROFILE_PARENT: BASE
     SERVER_PROFILE_URL: "${PROFILES_REPO_URL}"
     SERVER_PROFILE_PATH: profiles/pingaccess_admin
   container:
