@@ -356,4 +356,4 @@ pingaccess-engine:
     SERVER_PROFILE_PATH: profiles/pingaccess
     VERBOSE: "true"
   container:
-    replicaCount: 1
+    replicaCount: 2
