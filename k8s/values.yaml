@@ -333,27 +333,27 @@ pingdataconsole:
     SERVER_PROFILE_BRANCH: master
 
 
-pingaccess-admin:
-  enabled: true
-  privateCert:
-    generate: true
-  envs:
-    SERVER_PROFILE_BASE_URL: "${PROFILES_REPO_URL}"
-    SERVER_PROFILE_BASE_PATH: profiles/pingaccess
-    SERVER_PROFILE_PARENT: BASE
-    SERVER_PROFILE_URL: "${PROFILES_REPO_URL}"
-    SERVER_PROFILE_PATH: profiles/pingaccess_admin
-  container:
-    replicaCount: 1
-    waitFor:
-      pingfederate-engine:
-        service: https
+# pingaccess-admin:
+#   enabled: true
+#   privateCert:
+#     generate: true
+#   envs:
+#     SERVER_PROFILE_BASE_URL: "${PROFILES_REPO_URL}"
+#     SERVER_PROFILE_BASE_PATH: profiles/pingaccess
+#     SERVER_PROFILE_PARENT: BASE
+#     SERVER_PROFILE_URL: "${PROFILES_REPO_URL}"
+#     SERVER_PROFILE_PATH: profiles/pingaccess_admin
+#   container:
+#     replicaCount: 1
+#     waitFor:
+#       pingfederate-engine:
+#         service: https
 
-pingaccess-engine:
-  enabled: true
-  envs:
-    SERVER_PROFILE_URL: "${PROFILES_REPO_URL}"
-    SERVER_PROFILE_PATH: profiles/pingaccess
-    VERBOSE: "true"
-  container:
-    replicaCount: 1
+# pingaccess-engine:
+#   enabled: true
+#   envs:
+#     SERVER_PROFILE_URL: "${PROFILES_REPO_URL}"
+#     SERVER_PROFILE_PATH: profiles/pingaccess
+#     VERBOSE: "true"
+#   container:
+#     replicaCount: 1
