@@ -4,12 +4,12 @@ on:
   # Trigger the workflow on push or pull request,
   # but NOT for the prod branch
   push:
-    branches:
-      - '*'
-      - '!prod'
-    paths-ignore:
-      - "**.md"
-      - ".gitignore"
+    # branches:
+    #   - '*'
+    #   - '!prod'
+    # paths-ignore:
+    #   - "**.md"
+    #   - ".gitignore"
 
 
 name: DeployFeature
