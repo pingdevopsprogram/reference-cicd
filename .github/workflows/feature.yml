@@ -4,9 +4,9 @@ on:
   # Trigger the workflow on push or pull request,
   # but NOT for the prod branch
   push:
-    # branches:
-    #   - '*'
-    #   - '!prod'
+    branches:
+      - '*'
+      - '!prod'
     # paths-ignore:
     #   - "**.md"
     #   - ".gitignore"
