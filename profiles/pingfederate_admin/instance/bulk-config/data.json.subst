@@ -284,11 +284,18 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{
-                "password": "${keyPairs_signing_items_devsigningcert_devsigningcert_password}",
-                "fileData": "${keyPairs_signing_items_devsigningcert_devsigningcert_fileData}",
-                "id": "devsigningcert"
-            }],
+            "items": [
+                {
+                    "password": "${keyPairs_signing_items_devsigningcert_devsigningcert_password}",
+                    "fileData": "${keyPairs_signing_items_devsigningcert_devsigningcert_fileData}",
+                    "id": "devsigningcert"
+                },
+                {
+                    "password": "${keyPairs_signing_items_localhostsigning_localhostsigning_password}",
+                    "fileData": "${keyPairs_signing_items_localhostsigning_localhostsigning_fileData}",
+                    "id": "localhostsigning"
+                }
+            ],
             "resourceType": "/keyPairs/signing"
         },
         {
@@ -428,9 +435,9 @@
                 "password": "${PING_IDENTITY_PASSWORD}",
                 "roles": [
                     "USER_ADMINISTRATOR",
-                    "EXPRESSION_ADMINISTRATOR",
                     "CRYPTO_ADMINISTRATOR",
-                    "ADMINISTRATOR"
+                    "ADMINISTRATOR",
+                    "EXPRESSION_ADMINISTRATOR"
                 ],
                 "auditor": false,
                 "description": "Initial administrator user.",
