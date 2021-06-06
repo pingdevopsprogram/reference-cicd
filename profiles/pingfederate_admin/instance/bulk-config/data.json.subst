@@ -290,10 +290,10 @@
                     "fileData": "${keyPairs_signing_items_devsigningcert_devsigningcert_fileData}",
                     "id": "devsigningcert"
                 },
-                {
-                    "password": "${keyPairs_signing_items_localhostSigning_localhostSigning_password}",
-                    "fileData": "${keyPairs_signing_items_localhostSigning_localhostSigning_fileData}",
-                    "id": "localhostSigning"
+                
+                    "password": "${keyPairs_signing_items_localhostsigning_localhostsigning_password}",
+                    "fileData": "${keyPairs_signing_items_localhostsigning_localhostsigning_fileData}",
+                    "id": "localhostsigning"
                 }
             ],
             "resourceType": "/keyPairs/signing"
